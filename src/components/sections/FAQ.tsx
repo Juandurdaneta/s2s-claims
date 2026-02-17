@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useRef } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { Container } from "@/components/ui/Container";
-import { FadeIn } from "@/components/animations/FadeIn";
-import { ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/Button";
+import { ChevronDown, Phone, MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const FAQ_ITEMS = [
@@ -16,7 +16,7 @@ const FAQ_ITEMS = [
   {
     question: "Is it too late if I already received an offer?",
     answer:
-      "Not at all! As long as you haven't signed a final release, we can usually help. Many of our best results come from reopening \"settled\" claims that homeowners initially accepted.",
+      'Not at all! As long as you haven\'t signed a final release, we can usually help. Many of our best results come from reopening "settled" claims that homeowners initially accepted.',
   },
   {
     question: "Will hiring you make the insurance company deny my claim?",
@@ -52,34 +52,67 @@ const FAQ_ITEMS = [
 
 function FAQItem({
   item,
+  index,
   isOpen,
   onToggle,
 }: {
   item: (typeof FAQ_ITEMS)[number];
+  index: number;
   isOpen: boolean;
   onToggle: () => void;
 }) {
   return (
-    <div className="border-b border-forest-600/20 last:border-b-0">
+    <motion.div
+      variants={{
+        hidden: { opacity: 0, x: 20 },
+        visible: {
+          opacity: 1,
+          x: 0,
+          transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
+        },
+      }}
+      className={cn(
+        "group rounded-xl border transition-all duration-300",
+        isOpen
+          ? "border-gold-500/30 bg-forest-800/60 shadow-[0_0_20px_rgba(197,165,90,0.06)]"
+          : "border-forest-600/15 bg-forest-800/20 hover:border-forest-600/30 hover:bg-forest-800/30"
+      )}
+    >
       <button
         onClick={onToggle}
-        className="flex w-full items-center justify-between gap-4 py-5 text-left transition-colors hover:text-gold-400 focus-visible:outline-2 focus-visible:outline-gold-500"
+        className="flex w-full items-center gap-4 px-5 py-4 text-left focus-visible:outline-2 focus-visible:outline-gold-500 focus-visible:rounded-xl md:px-6 md:py-5"
         aria-expanded={isOpen}
       >
+        {/* Number badge */}
         <span
           className={cn(
-            "text-lg font-semibold transition-colors",
-            isOpen ? "text-gold-400" : "text-cream-100"
+            "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-xs font-bold transition-all duration-300",
+            isOpen
+              ? "bg-gold-500 text-forest-950"
+              : "bg-forest-700/40 text-cream-200/50 group-hover:bg-forest-700/60"
+          )}
+        >
+          {String(index + 1).padStart(2, "0")}
+        </span>
+
+        <span
+          className={cn(
+            "flex-1 text-[0.95rem] font-semibold transition-colors duration-200 md:text-base",
+            isOpen ? "text-gold-400" : "text-cream-100 group-hover:text-cream-50"
           )}
         >
           {item.question}
         </span>
+
         <motion.span
           animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.3 }}
-          className="shrink-0"
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+          className={cn(
+            "shrink-0 rounded-full p-1 transition-colors duration-300",
+            isOpen ? "bg-gold-500/15 text-gold-400" : "text-cream-200/30"
+          )}
         >
-          <ChevronDown className="h-5 w-5 text-cream-200/40" />
+          <ChevronDown className="h-4 w-4" />
         </motion.span>
       </button>
 
@@ -92,40 +125,129 @@ function FAQItem({
             transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="overflow-hidden"
           >
-            <p className="pb-5 text-cream-200/60 leading-relaxed">
-              {item.answer}
-            </p>
+            <div className="px-5 pb-5 pl-[4.25rem] md:px-6 md:pb-6 md:pl-[4.75rem]">
+              <p className="text-[0.9rem] leading-relaxed text-cream-200/60 md:text-[0.95rem]">
+                {item.answer}
+              </p>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 }
 
 export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(sectionRef, { once: true, amount: 0.15 });
 
   return (
-    <section className="relative bg-forest-950 py-24 md:py-32 lg:py-40">
-      <Container>
-        <FadeIn className="mx-auto max-w-3xl text-center">
-          <h2 className="font-display text-3xl font-bold leading-tight text-cream-50 sm:text-4xl md:text-5xl">
-            Frequently Asked Questions
-          </h2>
-        </FadeIn>
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden bg-forest-950 py-24 md:py-32 lg:py-40"
+    >
+      {/* Background decorations */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -left-40 top-1/4 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-forest-600/10 to-transparent blur-3xl" />
+        <div className="absolute -right-40 bottom-1/4 h-[400px] w-[400px] rounded-full bg-gradient-to-tl from-gold-500/5 to-transparent blur-3xl" />
+        {/* Subtle vertical lines */}
+        <div
+          className="absolute inset-0 opacity-[0.025]"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(90deg, rgba(255,255,255,0.1) 0px, rgba(255,255,255,0.1) 1px, transparent 1px, transparent 80px)",
+          }}
+        />
+      </div>
 
-        <FadeIn delay={0.15} className="mx-auto mt-12 max-w-3xl">
-          <div className="rounded-2xl border border-forest-600/20 bg-forest-800/30 px-6">
+      <Container className="relative z-10">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
+          {/* Left column: Header + CTA */}
+          <div className="lg:col-span-4">
+            <div className="lg:sticky lg:top-32">
+              <motion.span
+                initial={{ opacity: 0, y: 12 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5 }}
+                className="inline-block text-sm font-semibold uppercase tracking-widest text-gold-500"
+              >
+                Got Questions?
+              </motion.span>
+
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="mt-3 font-display text-3xl font-bold leading-tight text-cream-50 sm:text-4xl lg:text-[2.75rem]"
+              >
+                Frequently Asked Questions
+              </motion.h2>
+
+              <motion.p
+                initial={{ opacity: 0, y: 16 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="mt-4 text-base leading-relaxed text-cream-200/50"
+              >
+                Everything you need to know about working with a licensed public
+                adjuster in Texas.
+              </motion.p>
+
+              {/* CTA card */}
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.35 }}
+                className="mt-8 rounded-2xl border border-gold-500/20 bg-gradient-to-b from-gold-500/10 to-gold-500/5 p-6"
+              >
+                <p className="text-sm font-semibold text-cream-100">
+                  Still have questions?
+                </p>
+                <p className="mt-1.5 text-sm leading-relaxed text-cream-200/50">
+                  Our team is here to help. Get a free consultation — no
+                  pressure, no obligation.
+                </p>
+                <div className="mt-5 flex flex-col gap-3">
+                  <Button href="/contact" size="default" variant="primary">
+                    <MessageCircle className="h-4 w-4" />
+                    Free Claim Review
+                  </Button>
+                  <a
+                    href="tel:5551234567"
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-cream-200/15 px-5 py-2.5 text-sm font-medium text-cream-200/70 transition-colors hover:border-cream-200/30 hover:text-cream-100"
+                  >
+                    <Phone className="h-3.5 w-3.5" />
+                    (555) 123-4567
+                  </a>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+
+          {/* Right column: FAQ accordion */}
+          <motion.div
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            variants={{
+              hidden: {},
+              visible: {
+                transition: { staggerChildren: 0.06, delayChildren: 0.2 },
+              },
+            }}
+            className="flex flex-col gap-3 lg:col-span-8"
+          >
             {FAQ_ITEMS.map((item, i) => (
               <FAQItem
                 key={i}
                 item={item}
+                index={i}
                 isOpen={openIndex === i}
                 onToggle={() => setOpenIndex(openIndex === i ? null : i)}
               />
             ))}
-          </div>
-        </FadeIn>
+          </motion.div>
+        </div>
       </Container>
     </section>
   );
