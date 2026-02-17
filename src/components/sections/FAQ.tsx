@@ -74,8 +74,8 @@ function FAQItem({
       className={cn(
         "group rounded-xl border transition-all duration-300",
         isOpen
-          ? "border-gold-500/30 bg-forest-800/60 shadow-[0_0_20px_rgba(197,165,90,0.06)]"
-          : "border-forest-600/15 bg-forest-800/20 hover:border-forest-600/30 hover:bg-forest-800/30"
+          ? "border-gold-500/30 bg-white shadow-[0_2px_12px_rgba(10,26,18,0.06),0_0_20px_rgba(197,165,90,0.06)]"
+          : "border-forest-800/8 bg-white/60 hover:border-forest-800/15 hover:bg-white"
       )}
     >
       <button
@@ -89,7 +89,7 @@ function FAQItem({
             "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-xs font-bold transition-all duration-300",
             isOpen
               ? "bg-gold-500 text-forest-950"
-              : "bg-forest-700/40 text-cream-200/50 group-hover:bg-forest-700/60"
+              : "bg-forest-900/8 text-forest-800/50 group-hover:bg-forest-900/12"
           )}
         >
           {String(index + 1).padStart(2, "0")}
@@ -98,7 +98,7 @@ function FAQItem({
         <span
           className={cn(
             "flex-1 text-[0.95rem] font-semibold transition-colors duration-200 md:text-base",
-            isOpen ? "text-gold-400" : "text-cream-100 group-hover:text-cream-50"
+            isOpen ? "text-gold-600" : "text-forest-900 group-hover:text-forest-950"
           )}
         >
           {item.question}
@@ -109,7 +109,7 @@ function FAQItem({
           transition={{ duration: 0.3, ease: "easeInOut" }}
           className={cn(
             "shrink-0 rounded-full p-1 transition-colors duration-300",
-            isOpen ? "bg-gold-500/15 text-gold-400" : "text-cream-200/30"
+            isOpen ? "bg-gold-500/15 text-gold-600" : "text-forest-800/30"
           )}
         >
           <ChevronDown className="h-4 w-4" />
@@ -126,7 +126,7 @@ function FAQItem({
             className="overflow-hidden"
           >
             <div className="px-5 pb-5 pl-[4.25rem] md:px-6 md:pb-6 md:pl-[4.75rem]">
-              <p className="text-[0.9rem] leading-relaxed text-cream-200/60 md:text-[0.95rem]">
+              <p className="text-[0.9rem] leading-relaxed text-forest-800/60 md:text-[0.95rem]">
                 {item.answer}
               </p>
             </div>
@@ -145,18 +145,19 @@ export function FAQ() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-forest-950 py-24 md:py-32 lg:py-40"
+      className="relative overflow-hidden bg-cream-50 py-24 md:py-32 lg:py-40"
     >
       {/* Background decorations */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -left-40 top-1/4 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-forest-600/10 to-transparent blur-3xl" />
-        <div className="absolute -right-40 bottom-1/4 h-[400px] w-[400px] rounded-full bg-gradient-to-tl from-gold-500/5 to-transparent blur-3xl" />
-        {/* Subtle vertical lines */}
+        <div className="absolute -left-40 top-1/4 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-gold-300/15 to-transparent blur-3xl" />
+        <div className="absolute -right-40 bottom-1/4 h-[400px] w-[400px] rounded-full bg-gradient-to-tl from-forest-400/5 to-transparent blur-3xl" />
+        {/* Subtle dot pattern */}
         <div
-          className="absolute inset-0 opacity-[0.025]"
+          className="absolute inset-0 opacity-[0.35]"
           style={{
             backgroundImage:
-              "repeating-linear-gradient(90deg, rgba(255,255,255,0.1) 0px, rgba(255,255,255,0.1) 1px, transparent 1px, transparent 80px)",
+              "radial-gradient(circle, rgba(10,26,18,0.06) 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
           }}
         />
       </div>
@@ -170,7 +171,7 @@ export function FAQ() {
                 initial={{ opacity: 0, y: 12 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5 }}
-                className="inline-block text-sm font-semibold uppercase tracking-widest text-gold-500"
+                className="inline-block text-sm font-semibold uppercase tracking-widest text-gold-600"
               >
                 Got Questions?
               </motion.span>
@@ -179,7 +180,7 @@ export function FAQ() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="mt-3 font-display text-3xl font-bold leading-tight text-cream-50 sm:text-4xl lg:text-[2.75rem]"
+                className="mt-3 font-display text-3xl font-bold leading-tight text-forest-950 sm:text-4xl lg:text-[2.75rem]"
               >
                 Frequently Asked Questions
               </motion.h2>
@@ -188,7 +189,7 @@ export function FAQ() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="mt-4 text-base leading-relaxed text-cream-200/50"
+                className="mt-4 text-base leading-relaxed text-forest-800/60"
               >
                 Everything you need to know about working with a licensed public
                 adjuster in Texas.
@@ -199,12 +200,12 @@ export function FAQ() {
                 initial={{ opacity: 0, y: 24 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.35 }}
-                className="mt-8 rounded-2xl border border-gold-500/20 bg-gradient-to-b from-gold-500/10 to-gold-500/5 p-6"
+                className="mt-8 rounded-2xl border border-forest-800/10 bg-white p-6 shadow-[0_2px_8px_rgba(10,26,18,0.06)]"
               >
-                <p className="text-sm font-semibold text-cream-100">
+                <p className="text-sm font-semibold text-forest-900">
                   Still have questions?
                 </p>
-                <p className="mt-1.5 text-sm leading-relaxed text-cream-200/50">
+                <p className="mt-1.5 text-sm leading-relaxed text-forest-800/60">
                   Our team is here to help. Get a free consultation — no
                   pressure, no obligation.
                 </p>
@@ -215,7 +216,7 @@ export function FAQ() {
                   </Button>
                   <a
                     href="tel:5551234567"
-                    className="inline-flex items-center justify-center gap-2 rounded-full border border-cream-200/15 px-5 py-2.5 text-sm font-medium text-cream-200/70 transition-colors hover:border-cream-200/30 hover:text-cream-100"
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-forest-800/15 px-5 py-2.5 text-sm font-medium text-forest-800/70 transition-colors hover:border-forest-800/30 hover:text-forest-900"
                   >
                     <Phone className="h-3.5 w-3.5" />
                     (555) 123-4567
