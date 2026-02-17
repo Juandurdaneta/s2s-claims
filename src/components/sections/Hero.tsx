@@ -159,19 +159,20 @@ export function Hero() {
             duration: 0.6,
             ease: "back.out(1.7)",
           },
-          0.9
+          0.8
         )
 
-        // Phase 5: Headline lines rise through clip masks
+        // Phase 5: Headline lines rise through clip masks (overlaps with curtain)
         .fromTo(
           headlineLines,
-          { yPercent: 120, rotateX: -8 },
+          { yPercent: 120, rotateX: -8, opacity: 0 },
           {
             yPercent: 0,
             rotateX: 0,
-            duration: 0.8,
-            stagger: 0.13,
-            ease: "power3.out",
+            opacity: 1,
+            duration: 1,
+            stagger: 0.12,
+            ease: "power2.out",
             onComplete: () => {
               // Remove will-change and clear GSAP inline styles so CSS doesn't fight
               headlineLines.forEach((el) => {
@@ -181,7 +182,7 @@ export function Hero() {
               });
             },
           },
-          1.1
+          0.85
         )
 
         // Phase 6: FULL shimmer sweep
@@ -189,7 +190,7 @@ export function Hero() {
           shimmer,
           { x: "-100%" },
           { x: "350%", duration: 0.9, ease: "power2.inOut" },
-          1.8
+          1.7
         )
 
         // Phase 7: Supporting content fades up
@@ -197,19 +198,19 @@ export function Hero() {
           sub,
           { opacity: 0, y: 24 },
           { opacity: 1, y: 0, duration: 0.6 },
-          2.0
+          1.9
         )
         .fromTo(
           cta,
           { opacity: 0, y: 20, scale: 0.95 },
           { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.4)" },
-          2.2
+          2.1
         )
         .fromTo(
           trustItems,
           { opacity: 0, y: 14 },
           { opacity: 1, y: 0, duration: 0.4, stagger: 0.1 },
-          2.4
+          2.3
         )
 
         // Phase 8: Gold particles fade in for ambient state

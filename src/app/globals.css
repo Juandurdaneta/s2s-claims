@@ -110,6 +110,7 @@ html {
 /* Hero headline initial state — hidden below clip mask, GSAP will override via inline styles */
 .hero-headline-inner {
   transform: translateY(120%) rotateX(-8deg);
+  opacity: 0;
 }
 
 /* Hero headline final state — visible after GSAP animation completes */
