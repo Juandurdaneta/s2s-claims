@@ -107,6 +107,16 @@ html {
   outline-offset: 2px;
 }
 
+/* Hero headline initial state — hidden below clip mask, GSAP will override via inline styles */
+.hero-headline-inner {
+  transform: translateY(120%) rotateX(-8deg);
+}
+
+/* Hero headline final state — visible after GSAP animation completes */
+.hero-headline-done {
+  transform: none;
+}
+
 /* Body base */
 body {
   font-family: var(--font-body);

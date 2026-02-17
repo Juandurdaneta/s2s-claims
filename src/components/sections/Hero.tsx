@@ -172,6 +172,14 @@ export function Hero() {
             duration: 0.8,
             stagger: 0.13,
             ease: "power3.out",
+            onComplete: () => {
+              // Remove will-change and clear GSAP inline styles so CSS doesn't fight
+              headlineLines.forEach((el) => {
+                gsap.set(el, { clearProps: "all" });
+                el.classList.remove("hero-headline-inner");
+                el.classList.add("hero-headline-done");
+              });
+            },
           },
           1.1
         )
@@ -309,12 +317,9 @@ export function Hero() {
             {HEADLINE_LINES.map((line, lineIndex) => (
               <span key={lineIndex} className="block overflow-hidden">
                 <span
-                  className="hero-headline-inner block will-change-transform"
-                  style={
-                    reducedMotion
-                      ? {}
-                      : { transform: "translateY(120%) rotateX(-8deg)" }
-                  }
+                  className={`hero-headline-inner block will-change-transform ${
+                    reducedMotion ? "!transform-none" : ""
+                  }`}
                 >
                   {line.segments.map((seg, segIndex) =>
                     seg.highlight ? (
