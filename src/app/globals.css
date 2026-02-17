@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+@theme {
+  /* S2S Claims Brand Colors */
+  --color-forest-950: #0A1A12;
+  --color-forest-900: #0D1F17;
+  --color-forest-800: #132B1F;
+  --color-forest-700: #1B3A2D;
+  --color-forest-600: #2A5740;
+  --color-forest-500: #3A7556;
+  --color-forest-400: #4F9A72;
+  --color-forest-300: #6FBD92;
+
+  --color-gold-600: #A38840;
+  --color-gold-500: #C5A55A;
+  --color-gold-400: #D4B96E;
+  --color-gold-300: #E0CC8A;
+  --color-gold-200: #EDE0B0;
+
+  --color-cream-50: #FEFDFB;
+  --color-cream-100: #F8F6F1;
+  --color-cream-200: #F0ECE3;
+  --color-cream-300: #E2DCD0;
+
+  /* Font families */
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
+
+  /* Animations */
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-dramatic: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-slow: float 8s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  33% { transform: translateY(-12px) translateX(6px); }
+  66% { transform: translateY(6px) translateX(-6px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.05); }
+}
+
+@keyframes particle-drift {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: inherit;
+  }
+  25% {
+    transform: translateY(-30px) translateX(15px);
+    opacity: inherit;
+  }
+  50% {
+    transform: translateY(-10px) translateX(-20px);
+    opacity: 0.05;
+  }
+  75% {
+    transform: translateY(-40px) translateX(10px);
+    opacity: inherit;
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-forest-950);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-forest-600);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-forest-500);
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-gold-500);
+  color: var(--color-forest-950);
+}
+
+/* Focus visible */
+*:focus-visible {
+  outline: 2px solid var(--color-gold-500);
+  outline-offset: 2px;
+}
+
+/* Body base */
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-forest-950);
+  color: white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
