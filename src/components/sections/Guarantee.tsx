@@ -75,7 +75,7 @@ export function Guarantee() {
           </div>
 
           <h2 className="font-display text-3xl font-bold leading-tight text-cream-50 sm:text-4xl md:text-5xl">
-            Our Rock-Solid &ldquo;You Only Pay If We Win&rdquo; Guarantee
+            Our Rock-Solid <span className="text-gold-400">&ldquo;You Only Pay If We Win&rdquo;</span> Guarantee
           </h2>
           <p className="mt-6 text-lg text-cream-200/60">
             You don&apos;t pay us anything upfront. Not a single dollar. We only get

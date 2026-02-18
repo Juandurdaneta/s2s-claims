@@ -14,7 +14,16 @@ gsap.registerPlugin(ScrollTrigger);
 const STATS = [
   { value: 100, suffix: "+", label: "Successful Claims" },
   { prefix: "$", value: 150, suffix: "K+", label: "In Settlements" },
-  { prefix: "$", value: 35, suffix: "K–$60K", label: "Average Increase" },
+  {
+    prefix: "$",
+    value: 35,
+    suffixParts: [
+      { text: "K–$", className: "text-gold-600" },
+      { text: "60", className: "text-forest-900" },
+      { text: "K", className: "text-gold-600" },
+    ],
+    label: "Average Increase",
+  },
 ];
 
 export function Problem() {
@@ -72,7 +81,8 @@ export function Problem() {
           <FadeIn delay={0.15}>
             <p className="mt-4 text-lg leading-relaxed text-forest-800/70">
               At S2S Claims, we help homeowners get their FULL settlements,
-              often 3–5X more than the insurance company&apos;s initial offer.
+              often 3–5X more than<br />
+              the insurance company&apos;s initial offer.
             </p>
           </FadeIn>
         </div>
@@ -82,7 +92,7 @@ export function Problem() {
           {STATS.map((stat, i) => (
             <FadeIn key={i} delay={0.1 + i * 0.1}>
               <div className="text-center">
-                <div className="font-display text-5xl font-bold text-forest-900 md:text-6xl">
+                <div className="font-display text-5xl font-bold text-forest-900 whitespace-nowrap md:text-6xl">
                   <span className="text-gold-600">{stat.prefix}</span>
                   <span
                     className="stat-number"
@@ -90,7 +100,13 @@ export function Problem() {
                   >
                     {reducedMotion ? stat.value : 0}
                   </span>
-                  <span className="text-gold-600">{stat.suffix}</span>
+                  {"suffixParts" in stat && stat.suffixParts ? (
+                    stat.suffixParts.map((part, j) => (
+                      <span key={j} className={part.className}>{part.text}</span>
+                    ))
+                  ) : (
+                    <span className="text-gold-600">{stat.suffix}</span>
+                  )}
                 </div>
                 <p className="mt-2 text-sm font-medium uppercase tracking-wider text-forest-700/60">
                   {stat.label}

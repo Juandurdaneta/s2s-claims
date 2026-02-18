@@ -40,7 +40,8 @@ export function PainPoints() {
           </h2>
           <p className="mt-6 text-lg leading-relaxed text-cream-200/60">
             Here&apos;s the truth: Your insurance adjuster works for the insurance
-            company, not for you. Their job is to save the company money.
+            company, not for you.<br />
+            Their job is to save the company money.
           </p>
         </FadeIn>
 
@@ -51,8 +52,8 @@ export function PainPoints() {
           {PAIN_POINTS.map((point) => (
             <StaggerItem key={point.title}>
               <Card variant="glass" className="h-full text-center">
-                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-red-500/10 border border-red-500/20">
-                  <point.icon className="h-6 w-6 text-red-400" />
+                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gold-500/10 border border-gold-500/20">
+                  <point.icon className="h-6 w-6 text-gold-400" />
                 </div>
                 <h3 className="text-lg font-bold text-cream-100">
                   {point.title}
