@@ -328,36 +328,6 @@ export function ServicesContent() {
                   </p>
                 </FadeIn>
 
-                {/* Comparison block (Step 2) */}
-                {step.comparison && (
-                  <FadeIn delay={0.1} className="mt-8">
-                    <div className="grid gap-4 md:grid-cols-2">
-                      <div className="rounded-2xl border border-red-500/20 bg-red-500/5 p-5">
-                        <p className="mb-2 text-sm font-bold uppercase tracking-wider text-red-400/80">
-                          Their Approach
-                        </p>
-                        <p className={step.dark ? "text-cream-200/60 text-sm" : "text-forest-800/60 text-sm"}>
-                          {step.comparison.them}
-                        </p>
-                      </div>
-                      <div
-                        className={`rounded-2xl border p-5 ${
-                          step.dark
-                            ? "border-gold-500/20 bg-gold-500/5"
-                            : "border-gold-600/20 bg-gold-500/5"
-                        }`}
-                      >
-                        <p className="mb-2 text-sm font-bold uppercase tracking-wider text-gold-500">
-                          Our Approach
-                        </p>
-                        <p className={step.dark ? "text-cream-200/60 text-sm" : "text-forest-800/60 text-sm"}>
-                          {step.comparison.us}
-                        </p>
-                      </div>
-                    </div>
-                  </FadeIn>
-                )}
-
                 {/* Points list */}
                 <StaggerChildren className="mt-8 inline-flex flex-col space-y-3" stagger={0.06}>
                   {step.points.map((point, j) => (
@@ -399,6 +369,36 @@ export function ServicesContent() {
                       <p className={`text-sm font-semibold ${step.dark ? "text-gold-400" : "text-gold-600"}`}>
                         {step.highlight}
                       </p>
+                    </div>
+                  </FadeIn>
+                )}
+
+                {/* Comparison block (Step 2) */}
+                {step.comparison && (
+                  <FadeIn delay={0.25} className="mt-8">
+                    <div className="grid gap-4 md:grid-cols-2">
+                      <div className="rounded-2xl border border-red-500/20 bg-red-500/5 p-5">
+                        <p className="mb-2 text-sm font-bold uppercase tracking-wider text-red-400/80">
+                          Their Approach
+                        </p>
+                        <p className={step.dark ? "text-cream-200/60 text-sm" : "text-forest-800/60 text-sm"}>
+                          {step.comparison.them}
+                        </p>
+                      </div>
+                      <div
+                        className={`rounded-2xl border p-5 ${
+                          step.dark
+                            ? "border-gold-500/20 bg-gold-500/5"
+                            : "border-gold-600/20 bg-gold-500/5"
+                        }`}
+                      >
+                        <p className="mb-2 text-sm font-bold uppercase tracking-wider text-gold-500">
+                          Our Approach
+                        </p>
+                        <p className={step.dark ? "text-cream-200/60 text-sm" : "text-forest-800/60 text-sm"}>
+                          {step.comparison.us}
+                        </p>
+                      </div>
                     </div>
                   </FadeIn>
                 )}
