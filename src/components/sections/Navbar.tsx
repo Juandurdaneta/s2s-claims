@@ -20,12 +20,24 @@ const NAV_LINKS = [
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
+  const lastScrollY = useRef(0);
   const pathname = usePathname();
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 40);
+    const handleScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 40);
+      // Hide on scroll down (past 80px), show on scroll up or at top
+      if (y > 80 && y - lastScrollY.current > 5) {
+        setHidden(true);
+      } else if (lastScrollY.current - y > 5 || y <= 40) {
+        setHidden(false);
+      }
+      lastScrollY.current = y;
+    };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -53,6 +65,7 @@ export function Navbar() {
         ref={navRef}
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+          hidden && !mobileOpen ? "-translate-y-full" : "translate-y-0",
           scrolled
             ? "bg-forest-950/90 backdrop-blur-xl border-b border-forest-700/30 shadow-lg shadow-black/10"
             : "bg-transparent"
