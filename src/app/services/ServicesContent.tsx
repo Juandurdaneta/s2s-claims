@@ -233,7 +233,7 @@ function StepPanel({ step }: { step: ProcessStep }) {
   return (
     <>
       {/* Header */}
-      <div className="flex items-center justify-center gap-3 mb-2">
+      <div className="flex items-center justify-center gap-3 mb-2 md:mb-3 lg:mb-4">
         <div
           className={`flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-xl ${
             step.dark
@@ -256,7 +256,7 @@ function StepPanel({ step }: { step: ProcessStep }) {
 
       {/* Title */}
       <h2
-        className={`font-display text-2xl font-bold sm:text-3xl md:text-4xl ${
+        className={`font-display text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl ${
           step.dark ? "text-cream-50" : "text-forest-900"
         }`}
       >
@@ -265,7 +265,7 @@ function StepPanel({ step }: { step: ProcessStep }) {
 
       {/* Description */}
       <p
-        className={`mt-2 md:mt-4 text-sm md:text-lg ${
+        className={`mt-2 md:mt-4 lg:mt-6 text-sm md:text-lg lg:text-xl ${
           step.dark ? "text-cream-200/60" : "text-forest-800/70"
         }`}
       >
@@ -273,7 +273,7 @@ function StepPanel({ step }: { step: ProcessStep }) {
       </p>
 
       {/* Points list */}
-      <div className="mt-3 md:mt-6 inline-flex flex-col space-y-1.5 md:space-y-3">
+      <div className="mt-3 md:mt-6 lg:mt-8 inline-flex flex-col space-y-1.5 md:space-y-3 lg:space-y-4">
         {step.points.map((point, j) => (
           <div key={j} className="flex items-start gap-2 md:gap-3">
             <div
@@ -288,7 +288,7 @@ function StepPanel({ step }: { step: ProcessStep }) {
               />
             </div>
             <p
-              className={`text-xs md:text-sm leading-relaxed ${
+              className={`text-xs md:text-sm lg:text-base leading-relaxed ${
                 step.dark ? "text-cream-200/70" : "text-forest-800/70"
               }`}
             >
@@ -301,14 +301,14 @@ function StepPanel({ step }: { step: ProcessStep }) {
       {/* Highlight */}
       {"highlight" in step && step.highlight && (
         <div
-          className={`mt-3 md:mt-6 rounded-xl p-3 md:p-4 ${
+          className={`mt-3 md:mt-6 lg:mt-8 rounded-xl p-3 md:p-4 lg:p-5 ${
             step.dark
               ? "bg-gold-500/5 border border-gold-500/15"
               : "bg-gold-500/5 border border-gold-600/15"
           }`}
         >
           <p
-            className={`text-xs md:text-sm font-semibold ${
+            className={`text-xs md:text-sm lg:text-base font-semibold ${
               step.dark ? "text-gold-400" : "text-gold-600"
             }`}
           >
@@ -319,13 +319,13 @@ function StepPanel({ step }: { step: ProcessStep }) {
 
       {/* Comparison block (Step 2) */}
       {"comparison" in step && step.comparison && (
-        <div className="mt-3 md:mt-6 grid gap-3 md:gap-4 md:grid-cols-2">
+        <div className="mt-3 md:mt-6 lg:mt-8 grid gap-3 md:gap-4 lg:gap-5 md:grid-cols-2">
           <div className="rounded-xl md:rounded-2xl border border-red-500/20 bg-red-500/5 p-3 md:p-5">
             <p className="mb-1 md:mb-2 text-xs font-bold uppercase tracking-wider text-red-400/80">
               Their Approach
             </p>
             <p
-              className={`text-xs md:text-sm ${
+              className={`text-xs md:text-sm lg:text-base ${
                 step.dark ? "text-cream-200/60" : "text-forest-800/60"
               }`}
             >
@@ -343,7 +343,7 @@ function StepPanel({ step }: { step: ProcessStep }) {
               Our Approach
             </p>
             <p
-              className={`text-xs md:text-sm ${
+              className={`text-xs md:text-sm lg:text-base ${
                 step.dark ? "text-cream-200/60" : "text-forest-800/60"
               }`}
             >
@@ -356,7 +356,7 @@ function StepPanel({ step }: { step: ProcessStep }) {
       {/* Note */}
       {"note" in step && step.note && (
         <p
-          className={`mt-3 md:mt-4 text-xs md:text-sm italic ${
+          className={`mt-3 md:mt-4 lg:mt-6 text-xs md:text-sm lg:text-base italic ${
             step.dark ? "text-cream-200/40" : "text-forest-700/50"
           }`}
         >
@@ -366,7 +366,7 @@ function StepPanel({ step }: { step: ProcessStep }) {
 
       {/* CTA */}
       {"cta" in step && step.cta && (
-        <div className="mt-4 md:mt-8">
+        <div className="mt-4 md:mt-8 lg:mt-10">
           <CTAButton />
         </div>
       )}
@@ -424,7 +424,7 @@ export function ServicesContent() {
           trigger: sectionRef.current,
           pin: true,
           start: "top top",
-          end: "+=500vh",
+          end: "+=800vh",
           scrub: 1,
           snap: {
             snapTo: 1 / 4,
@@ -540,7 +540,7 @@ export function ServicesContent() {
           />
 
           {/* Content layer */}
-          <div className="relative flex h-screen flex-col justify-center pt-20 pb-6">
+          <div className="relative flex h-screen flex-col justify-center pt-28 pb-6 md:pt-32">
             <Container>
               <div className="mx-auto max-w-4xl text-center">
                 {/* Step Indicator */}
