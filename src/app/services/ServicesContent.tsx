@@ -381,6 +381,7 @@ function StepPanel({ step }: { step: ProcessStep }) {
 export function ServicesContent() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
   const dotRefs = useRef<(HTMLDivElement | null)[]>([]);
   const connectorRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -388,7 +389,7 @@ export function ServicesContent() {
 
   useGSAP(
     () => {
-      if (reducedMotion || !sectionRef.current || !bgRef.current) return;
+      if (reducedMotion || !sectionRef.current || !bgRef.current || !contentRef.current) return;
 
       const panels = panelRefs.current.filter(Boolean) as HTMLDivElement[];
       const dots = dotRefs.current.filter(Boolean) as HTMLDivElement[];
@@ -397,6 +398,22 @@ export function ServicesContent() {
       ) as HTMLDivElement[];
 
       if (panels.length !== 5) return;
+
+      // Hide content until section scrolls into view (prevents indicators
+      // from showing through the hero section above)
+      gsap.set(contentRef.current, { autoAlpha: 0 });
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top 60%",
+        onEnter: () =>
+          gsap.to(contentRef.current!, {
+            autoAlpha: 1,
+            duration: 0.4,
+            ease: "power2.out",
+          }),
+        onLeaveBack: () =>
+          gsap.to(contentRef.current!, { autoAlpha: 0, duration: 0.3 }),
+      });
 
       // Initial states
       gsap.set(bgRef.current, {
@@ -539,8 +556,12 @@ export function ServicesContent() {
             style={{ backgroundColor: "#F8F6F1" }}
           />
 
-          {/* Content layer */}
-          <div className="relative flex h-screen flex-col justify-center py-24">
+          {/* Content layer — starts hidden, revealed by ScrollTrigger */}
+          <div
+            ref={contentRef}
+            className="relative flex h-screen flex-col justify-center py-24"
+            style={{ visibility: "hidden" }}
+          >
             <Container>
               <div className="mx-auto max-w-4xl text-center">
                 {/* Step Indicator */}
