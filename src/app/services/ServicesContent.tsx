@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, Fragment } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -224,34 +224,262 @@ const DIFFERENTIATORS = [
 ];
 
 /* ------------------------------------------------------------------ */
+/*  Step Panel Content (shared between GSAP and reduced-motion modes)  */
+/* ------------------------------------------------------------------ */
+
+type ProcessStep = (typeof PROCESS_STEPS)[number];
+
+function StepPanel({ step }: { step: ProcessStep }) {
+  return (
+    <>
+      {/* Header */}
+      <div className="flex items-center justify-center gap-3 mb-2">
+        <div
+          className={`flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-xl ${
+            step.dark
+              ? "bg-gold-500/10 border border-gold-500/20"
+              : "bg-forest-900/5 border border-forest-900/10"
+          }`}
+        >
+          <step.icon
+            className={`h-4 w-4 md:h-5 md:w-5 ${step.dark ? "text-gold-400" : "text-forest-700"}`}
+          />
+        </div>
+        <span
+          className={`font-display text-xs md:text-sm font-bold uppercase tracking-wider ${
+            step.dark ? "text-gold-500/60" : "text-gold-600/60"
+          }`}
+        >
+          Step {step.number}
+        </span>
+      </div>
+
+      {/* Title */}
+      <h2
+        className={`font-display text-2xl font-bold sm:text-3xl md:text-4xl ${
+          step.dark ? "text-cream-50" : "text-forest-900"
+        }`}
+      >
+        {step.title}
+      </h2>
+
+      {/* Description */}
+      <p
+        className={`mt-2 md:mt-4 text-sm md:text-lg ${
+          step.dark ? "text-cream-200/60" : "text-forest-800/70"
+        }`}
+      >
+        {step.description}
+      </p>
+
+      {/* Points list */}
+      <div className="mt-3 md:mt-6 inline-flex flex-col space-y-1.5 md:space-y-3">
+        {step.points.map((point, j) => (
+          <div key={j} className="flex items-start gap-2 md:gap-3">
+            <div
+              className={`mt-0.5 flex h-4 w-4 md:h-5 md:w-5 shrink-0 items-center justify-center rounded-full ${
+                step.dark
+                  ? "bg-gold-500/15 border border-gold-500/30"
+                  : "bg-forest-700/10 border border-forest-700/20"
+              }`}
+            >
+              <Check
+                className={`h-2.5 w-2.5 md:h-3 md:w-3 ${step.dark ? "text-gold-400" : "text-forest-700"}`}
+              />
+            </div>
+            <p
+              className={`text-xs md:text-sm leading-relaxed ${
+                step.dark ? "text-cream-200/70" : "text-forest-800/70"
+              }`}
+            >
+              {point}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      {/* Highlight */}
+      {"highlight" in step && step.highlight && (
+        <div
+          className={`mt-3 md:mt-6 rounded-xl p-3 md:p-4 ${
+            step.dark
+              ? "bg-gold-500/5 border border-gold-500/15"
+              : "bg-gold-500/5 border border-gold-600/15"
+          }`}
+        >
+          <p
+            className={`text-xs md:text-sm font-semibold ${
+              step.dark ? "text-gold-400" : "text-gold-600"
+            }`}
+          >
+            {step.highlight}
+          </p>
+        </div>
+      )}
+
+      {/* Comparison block (Step 2) */}
+      {"comparison" in step && step.comparison && (
+        <div className="mt-3 md:mt-6 grid gap-3 md:gap-4 md:grid-cols-2">
+          <div className="rounded-xl md:rounded-2xl border border-red-500/20 bg-red-500/5 p-3 md:p-5">
+            <p className="mb-1 md:mb-2 text-xs font-bold uppercase tracking-wider text-red-400/80">
+              Their Approach
+            </p>
+            <p
+              className={`text-xs md:text-sm ${
+                step.dark ? "text-cream-200/60" : "text-forest-800/60"
+              }`}
+            >
+              {step.comparison.them}
+            </p>
+          </div>
+          <div
+            className={`rounded-xl md:rounded-2xl border p-3 md:p-5 ${
+              step.dark
+                ? "border-gold-500/20 bg-gold-500/5"
+                : "border-gold-600/20 bg-gold-500/5"
+            }`}
+          >
+            <p className="mb-1 md:mb-2 text-xs font-bold uppercase tracking-wider text-gold-500">
+              Our Approach
+            </p>
+            <p
+              className={`text-xs md:text-sm ${
+                step.dark ? "text-cream-200/60" : "text-forest-800/60"
+              }`}
+            >
+              {step.comparison.us}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* Note */}
+      {"note" in step && step.note && (
+        <p
+          className={`mt-3 md:mt-4 text-xs md:text-sm italic ${
+            step.dark ? "text-cream-200/40" : "text-forest-700/50"
+          }`}
+        >
+          {step.note}
+        </p>
+      )}
+
+      {/* CTA */}
+      {"cta" in step && step.cta && (
+        <div className="mt-4 md:mt-8">
+          <CTAButton />
+        </div>
+      )}
+    </>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /*  Component                                                          */
 /* ------------------------------------------------------------------ */
 
 export function ServicesContent() {
-  const timelineRef = useRef<HTMLDivElement>(null);
-  const lineRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const bgRef = useRef<HTMLDivElement>(null);
+  const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const dotRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const connectorRefs = useRef<(HTMLDivElement | null)[]>([]);
   const reducedMotion = useReducedMotion();
 
   useGSAP(
     () => {
-      if (reducedMotion || !lineRef.current) return;
+      if (reducedMotion || !sectionRef.current || !bgRef.current) return;
 
-      gsap.fromTo(
-        lineRef.current,
-        { scaleY: 0 },
-        {
-          scaleY: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: timelineRef.current,
-            start: "top 60%",
-            end: "bottom 60%",
-            scrub: 1,
+      const panels = panelRefs.current.filter(Boolean) as HTMLDivElement[];
+      const dots = dotRefs.current.filter(Boolean) as HTMLDivElement[];
+      const connectors = connectorRefs.current.filter(
+        Boolean
+      ) as HTMLDivElement[];
+
+      if (panels.length !== 5) return;
+
+      // Initial states
+      gsap.set(bgRef.current, {
+        backgroundColor: PROCESS_STEPS[0].dark ? "#0A1A12" : "#F8F6F1",
+      });
+
+      panels.forEach((panel, i) => {
+        gsap.set(panel, { autoAlpha: i === 0 ? 1 : 0, y: i === 0 ? 0 : 40 });
+      });
+
+      dots.forEach((dot, i) => {
+        gsap.set(dot, {
+          scale: i === 0 ? 1 : 0.85,
+          opacity: i === 0 ? 1 : 0.35,
+        });
+      });
+
+      connectors.forEach((connector) => {
+        gsap.set(connector, { scaleX: 0 });
+      });
+
+      // Pinned scroll timeline
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          pin: true,
+          start: "top top",
+          end: "+=500vh",
+          scrub: 1,
+          snap: {
+            snapTo: 1 / 4,
+            duration: { min: 0.2, max: 0.6 },
+            ease: "power1.inOut",
           },
-        }
-      );
+        },
+      });
+
+      // 4 transitions between 5 steps
+      for (let i = 0; i < 4; i++) {
+        const start = i;
+        const nextStep = PROCESS_STEPS[i + 1];
+        const toBg = nextStep.dark ? "#0A1A12" : "#F8F6F1";
+
+        // Background color
+        tl.to(
+          bgRef.current,
+          { backgroundColor: toBg, duration: 1, ease: "power2.inOut" },
+          start
+        );
+
+        // Outgoing panel: fade out + slide up
+        tl.to(
+          panels[i],
+          { autoAlpha: 0, y: -40, duration: 0.5, ease: "power2.in" },
+          start
+        );
+
+        // Incoming panel: fade in + slide up into place
+        tl.to(
+          panels[i + 1],
+          { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" },
+          start + 0.35
+        );
+
+        // Step indicator: dim previous dot
+        tl.to(
+          dots[i],
+          { scale: 0.85, opacity: 0.35, duration: 0.4 },
+          start
+        );
+
+        // Step indicator: activate next dot
+        tl.to(
+          dots[i + 1],
+          { scale: 1, opacity: 1, duration: 0.4 },
+          start + 0.1
+        );
+
+        // Connector fill
+        tl.to(connectors[i], { scaleX: 1, duration: 0.6 }, start);
+      }
     },
-    { scope: timelineRef }
+    { scope: sectionRef, dependencies: [reducedMotion] }
   );
 
   return (
@@ -281,148 +509,85 @@ export function ServicesContent() {
       </section>
 
       {/* 5-Step Process */}
-      <div ref={timelineRef} id="process">
-        {PROCESS_STEPS.map((step, i) => (
-          <section
-            key={step.number}
-            className={step.dark ? "bg-forest-950 py-20 md:py-28" : "bg-cream-100 py-20 md:py-28"}
-          >
+      {reducedMotion ? (
+        /* Reduced motion: static stacked sections */
+        <div id="process">
+          {PROCESS_STEPS.map((step) => (
+            <section
+              key={step.number}
+              className={
+                step.dark
+                  ? "bg-forest-950 py-20 md:py-28"
+                  : "bg-cream-100 py-20 md:py-28"
+              }
+            >
+              <Container>
+                <div className="mx-auto max-w-4xl text-center">
+                  <StepPanel step={step} />
+                </div>
+              </Container>
+            </section>
+          ))}
+        </div>
+      ) : (
+        /* Animated: GSAP pinned scroll-reveal */
+        <div ref={sectionRef} id="process" className="relative z-10">
+          {/* Background layer for color transitions */}
+          <div
+            ref={bgRef}
+            className="absolute inset-0"
+            style={{ backgroundColor: "#F8F6F1" }}
+          />
+
+          {/* Content layer */}
+          <div className="relative flex h-screen flex-col justify-center pt-20 pb-6">
             <Container>
               <div className="mx-auto max-w-4xl text-center">
-                <FadeIn>
-                  <div className="flex items-center justify-center gap-4 mb-2">
-                    <div
-                      className={`flex h-12 w-12 items-center justify-center rounded-xl ${
-                        step.dark
-                          ? "bg-gold-500/10 border border-gold-500/20"
-                          : "bg-forest-900/5 border border-forest-900/10"
-                      }`}
-                    >
-                      <step.icon
-                        className={`h-5 w-5 ${step.dark ? "text-gold-400" : "text-forest-700"}`}
-                      />
-                    </div>
-                    <span
-                      className={`font-display text-sm font-bold uppercase tracking-wider ${
-                        step.dark ? "text-gold-500/60" : "text-gold-600/60"
-                      }`}
-                    >
-                      Step {step.number}
-                    </span>
-                  </div>
-
-                  <h2
-                    className={`font-display text-3xl font-bold sm:text-4xl ${
-                      step.dark ? "text-cream-50" : "text-forest-900"
-                    }`}
-                  >
-                    {step.title}
-                  </h2>
-
-                  <p
-                    className={`mt-4 text-lg ${
-                      step.dark ? "text-cream-200/60" : "text-forest-800/70"
-                    }`}
-                  >
-                    {step.description}
-                  </p>
-                </FadeIn>
-
-                {/* Points list */}
-                <StaggerChildren className="mt-8 inline-flex flex-col space-y-3" stagger={0.06}>
-                  {step.points.map((point, j) => (
-                    <StaggerItem key={j}>
-                      <div className="flex items-start gap-3">
-                        <div
-                          className={`mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${
-                            step.dark
-                              ? "bg-gold-500/15 border border-gold-500/30"
-                              : "bg-forest-700/10 border border-forest-700/20"
-                          }`}
-                        >
-                          <Check
-                            className={`h-3 w-3 ${step.dark ? "text-gold-400" : "text-forest-700"}`}
+                {/* Step Indicator */}
+                <div className="mb-4 flex items-center justify-center md:mb-8">
+                  {PROCESS_STEPS.map((step, i) => (
+                    <Fragment key={step.number}>
+                      <div
+                        ref={(el) => {
+                          dotRefs.current[i] = el;
+                        }}
+                        className="flex h-8 w-8 items-center justify-center rounded-full bg-gold-500 text-xs font-bold text-forest-950 md:h-10 md:w-10 md:text-sm"
+                      >
+                        {step.number}
+                      </div>
+                      {i < 4 && (
+                        <div className="relative mx-1 h-0.5 w-6 bg-gold-500/20 md:mx-2 md:w-10">
+                          <div
+                            ref={(el) => {
+                              connectorRefs.current[i] = el;
+                            }}
+                            className="absolute inset-0 origin-left scale-x-0 bg-gold-500"
                           />
                         </div>
-                        <p
-                          className={`text-sm leading-relaxed ${
-                            step.dark ? "text-cream-200/70" : "text-forest-800/70"
-                          }`}
-                        >
-                          {point}
-                        </p>
-                      </div>
-                    </StaggerItem>
+                      )}
+                    </Fragment>
                   ))}
-                </StaggerChildren>
+                </div>
 
-                {/* Highlight */}
-                {step.highlight && (
-                  <FadeIn delay={0.2} className="mt-6">
+                {/* Panel Stack — grid stacking so tallest panel sizes the container */}
+                <div className="grid">
+                  {PROCESS_STEPS.map((step, i) => (
                     <div
-                      className={`rounded-xl p-4 ${
-                        step.dark
-                          ? "bg-gold-500/5 border border-gold-500/15"
-                          : "bg-gold-500/5 border border-gold-600/15"
-                      }`}
+                      key={step.number}
+                      ref={(el) => {
+                        panelRefs.current[i] = el;
+                      }}
+                      style={{ gridArea: "1 / 1" }}
                     >
-                      <p className={`text-sm font-semibold ${step.dark ? "text-gold-400" : "text-gold-600"}`}>
-                        {step.highlight}
-                      </p>
+                      <StepPanel step={step} />
                     </div>
-                  </FadeIn>
-                )}
-
-                {/* Comparison block (Step 2) */}
-                {step.comparison && (
-                  <FadeIn delay={0.25} className="mt-8">
-                    <div className="grid gap-4 md:grid-cols-2">
-                      <div className="rounded-2xl border border-red-500/20 bg-red-500/5 p-5">
-                        <p className="mb-2 text-sm font-bold uppercase tracking-wider text-red-400/80">
-                          Their Approach
-                        </p>
-                        <p className={step.dark ? "text-cream-200/60 text-sm" : "text-forest-800/60 text-sm"}>
-                          {step.comparison.them}
-                        </p>
-                      </div>
-                      <div
-                        className={`rounded-2xl border p-5 ${
-                          step.dark
-                            ? "border-gold-500/20 bg-gold-500/5"
-                            : "border-gold-600/20 bg-gold-500/5"
-                        }`}
-                      >
-                        <p className="mb-2 text-sm font-bold uppercase tracking-wider text-gold-500">
-                          Our Approach
-                        </p>
-                        <p className={step.dark ? "text-cream-200/60 text-sm" : "text-forest-800/60 text-sm"}>
-                          {step.comparison.us}
-                        </p>
-                      </div>
-                    </div>
-                  </FadeIn>
-                )}
-
-                {/* Note */}
-                {step.note && (
-                  <FadeIn delay={0.15} className="mt-4">
-                    <p className={`text-sm italic ${step.dark ? "text-cream-200/40" : "text-forest-700/50"}`}>
-                      {step.note}
-                    </p>
-                  </FadeIn>
-                )}
-
-                {/* CTA */}
-                {step.cta && (
-                  <FadeIn delay={0.2} className="mt-8">
-                    <CTAButton />
-                  </FadeIn>
-                )}
+                  ))}
+                </div>
               </div>
             </Container>
-          </section>
-        ))}
-      </div>
+          </div>
+        </div>
+      )}
 
       {/* Claim Types */}
       <section className="bg-forest-900 py-24 md:py-32">
@@ -516,7 +681,7 @@ export function ServicesContent() {
             {DIFFERENTIATORS.map((item, i) => (
               <FadeIn key={item.title} delay={i * 0.08}>
                 <div className="flex flex-col items-center gap-3 rounded-2xl border border-forest-600/20 bg-forest-800/30 px-6 py-5 text-center transition-colors hover:border-gold-500/20">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gold-500/10 border border-gold-500/20">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gold-500/10 border border-gold-500/20">
                     <item.icon className="h-5 w-5 text-gold-400" />
                   </div>
                   <div>
