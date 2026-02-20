@@ -487,8 +487,8 @@ export function ServicesContent() {
             {PROCESS_REASONS.map((reason) => (
               <StaggerItem key={reason.title}>
                 <Card variant="light" className="h-full text-center">
-                  <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-forest-900/5 border border-forest-900/10">
-                    <reason.icon className="h-6 w-6 text-forest-700" />
+                  <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gold-500/10 border border-gold-500/20">
+                    <reason.icon className="h-6 w-6 text-gold-600" />
                   </div>
                   <h3 className="text-lg font-bold text-forest-900">
                     {reason.title}
