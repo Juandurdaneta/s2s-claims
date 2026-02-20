@@ -515,7 +515,7 @@ export function ServicesContent() {
           <div className="mx-auto mt-16 max-w-4xl space-y-4">
             {DIFFERENTIATORS.map((item, i) => (
               <FadeIn key={item.title} delay={i * 0.08}>
-                <div className="flex items-center gap-5 rounded-2xl border border-forest-600/20 bg-forest-800/30 px-6 py-5 transition-colors hover:border-gold-500/20">
+                <div className="flex flex-col items-center gap-3 rounded-2xl border border-forest-600/20 bg-forest-800/30 px-6 py-5 text-center transition-colors hover:border-gold-500/20">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gold-500/10 border border-gold-500/20">
                     <item.icon className="h-5 w-5 text-gold-400" />
                   </div>
@@ -531,6 +531,10 @@ export function ServicesContent() {
               </FadeIn>
             ))}
           </div>
+
+          <FadeIn delay={0.3} className="mt-12 text-center">
+            <CTAButton />
+          </FadeIn>
         </Container>
       </section>
 
