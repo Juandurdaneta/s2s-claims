@@ -229,9 +229,47 @@ const DIFFERENTIATORS = [
 
 type ProcessStep = (typeof PROCESS_STEPS)[number];
 
-function StepPanel({ step }: { step: ProcessStep }) {
+function StepIndicator({ activeIndex, dark }: { activeIndex: number; dark: boolean }) {
+  return (
+    <div className="mb-4 flex items-center justify-center md:mb-6">
+      {PROCESS_STEPS.map((s, i) => (
+        <Fragment key={s.number}>
+          <div
+            className={`flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold transition-colors md:h-10 md:w-10 md:text-sm ${
+              i <= activeIndex
+                ? "bg-gold-500 text-forest-950"
+                : dark
+                  ? "border border-cream-200/20 bg-cream-200/5 text-cream-200/30"
+                  : "border border-forest-900/15 bg-forest-900/5 text-forest-900/30"
+            }`}
+          >
+            {s.number}
+          </div>
+          {i < 4 && (
+            <div
+              className={`mx-1 h-0.5 w-6 md:mx-2 md:w-10 ${
+                dark ? "bg-cream-200/10" : "bg-forest-900/10"
+              }`}
+            >
+              <div
+                className={`h-full bg-gold-500 transition-transform origin-left ${
+                  i < activeIndex ? "scale-x-100" : "scale-x-0"
+                }`}
+              />
+            </div>
+          )}
+        </Fragment>
+      ))}
+    </div>
+  );
+}
+
+function StepPanel({ step, stepIndex }: { step: ProcessStep; stepIndex: number }) {
   return (
     <>
+      {/* Step Indicator */}
+      <StepIndicator activeIndex={stepIndex} dark={step.dark} />
+
       {/* Header */}
       <div className="flex items-center justify-center gap-3 mb-2 md:mb-3 lg:mb-4">
         <div
@@ -383,8 +421,6 @@ export function ServicesContent() {
   const bgRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const dotRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const connectorRefs = useRef<(HTMLDivElement | null)[]>([]);
   const reducedMotion = useReducedMotion();
 
   useGSAP(
@@ -392,10 +428,6 @@ export function ServicesContent() {
       if (reducedMotion || !sectionRef.current || !bgRef.current || !contentRef.current) return;
 
       const panels = panelRefs.current.filter(Boolean) as HTMLDivElement[];
-      const dots = dotRefs.current.filter(Boolean) as HTMLDivElement[];
-      const connectors = connectorRefs.current.filter(
-        Boolean
-      ) as HTMLDivElement[];
 
       if (panels.length !== 5) return;
 
@@ -422,17 +454,6 @@ export function ServicesContent() {
 
       panels.forEach((panel, i) => {
         gsap.set(panel, { autoAlpha: i === 0 ? 1 : 0, y: i === 0 ? 0 : 40 });
-      });
-
-      dots.forEach((dot, i) => {
-        gsap.set(dot, {
-          scale: i === 0 ? 1 : 0.85,
-          opacity: i === 0 ? 1 : 0.35,
-        });
-      });
-
-      connectors.forEach((connector) => {
-        gsap.set(connector, { scaleX: 0 });
       });
 
       // Pinned scroll timeline
@@ -478,22 +499,6 @@ export function ServicesContent() {
           start + 0.35
         );
 
-        // Step indicator: dim previous dot
-        tl.to(
-          dots[i],
-          { scale: 0.85, opacity: 0.35, duration: 0.4 },
-          start
-        );
-
-        // Step indicator: activate next dot
-        tl.to(
-          dots[i + 1],
-          { scale: 1, opacity: 1, duration: 0.4 },
-          start + 0.1
-        );
-
-        // Connector fill
-        tl.to(connectors[i], { scaleX: 1, duration: 0.6 }, start);
       }
     },
     { scope: sectionRef, dependencies: [reducedMotion] }
@@ -529,7 +534,7 @@ export function ServicesContent() {
       {reducedMotion ? (
         /* Reduced motion: static stacked sections */
         <div id="process">
-          {PROCESS_STEPS.map((step) => (
+          {PROCESS_STEPS.map((step, i) => (
             <section
               key={step.number}
               className={
@@ -540,7 +545,7 @@ export function ServicesContent() {
             >
               <Container>
                 <div className="mx-auto max-w-4xl text-center">
-                  <StepPanel step={step} />
+                  <StepPanel step={step} stepIndex={i} />
                 </div>
               </Container>
             </section>
@@ -564,32 +569,6 @@ export function ServicesContent() {
           >
             <Container>
               <div className="mx-auto max-w-4xl text-center">
-                {/* Step Indicator */}
-                <div className="mb-4 flex items-center justify-center md:mb-8">
-                  {PROCESS_STEPS.map((step, i) => (
-                    <Fragment key={step.number}>
-                      <div
-                        ref={(el) => {
-                          dotRefs.current[i] = el;
-                        }}
-                        className="flex h-8 w-8 items-center justify-center rounded-full bg-gold-500 text-xs font-bold text-forest-950 md:h-10 md:w-10 md:text-sm"
-                      >
-                        {step.number}
-                      </div>
-                      {i < 4 && (
-                        <div className="relative mx-1 h-0.5 w-6 bg-gold-500/20 md:mx-2 md:w-10">
-                          <div
-                            ref={(el) => {
-                              connectorRefs.current[i] = el;
-                            }}
-                            className="absolute inset-0 origin-left scale-x-0 bg-gold-500"
-                          />
-                        </div>
-                      )}
-                    </Fragment>
-                  ))}
-                </div>
-
                 {/* Panel Stack — grid stacking so tallest panel sizes the container */}
                 <div className="grid">
                   {PROCESS_STEPS.map((step, i) => (
@@ -601,7 +580,7 @@ export function ServicesContent() {
                       className="flex flex-col justify-center"
                       style={{ gridArea: "1 / 1" }}
                     >
-                      <StepPanel step={step} />
+                      <StepPanel step={step} stepIndex={i} />
                     </div>
                   ))}
                 </div>

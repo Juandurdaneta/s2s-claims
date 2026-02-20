@@ -23,20 +23,37 @@ export function Navbar() {
   const [hidden, setHidden] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
-  const lastScrollY = useRef(0);
+  const lastDirectionChangeY = useRef(0);
+  const lastDirection = useRef<"up" | "down" | null>(null);
+  const prevY = useRef(0);
   const pathname = usePathname();
 
   useEffect(() => {
+    prevY.current = window.scrollY;
+    lastDirectionChangeY.current = window.scrollY;
+
     const handleScroll = () => {
       const y = window.scrollY;
       setScrolled(y > 40);
-      // Hide on scroll down (past 80px), show on scroll up or at top
-      if (y > 80 && y - lastScrollY.current > 5) {
+
+      const dir = y > prevY.current ? "down" : "up";
+
+      // Track direction changes for hysteresis
+      if (dir !== lastDirection.current) {
+        lastDirectionChangeY.current = y;
+        lastDirection.current = dir;
+      }
+
+      // Require sustained scrolling (40px down to hide, 20px up to show)
+      if (dir === "down" && y > 80 && y - lastDirectionChangeY.current > 40) {
         setHidden(true);
-      } else if (lastScrollY.current - y > 5 || y <= 40) {
+      } else if (dir === "up" && lastDirectionChangeY.current - y > 20) {
         setHidden(false);
       }
-      lastScrollY.current = y;
+
+      if (y <= 40) setHidden(false);
+
+      prevY.current = y;
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
