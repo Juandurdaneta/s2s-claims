@@ -67,7 +67,17 @@ export function Navbar() {
     gsap.fromTo(
       navRef.current,
       { y: -80, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, ease: "power3.out", delay: 0.2 }
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: "power3.out",
+        delay: 0.2,
+        onComplete: () => {
+          // Clear inline transform so Tailwind -translate-y-full can work
+          if (navRef.current) gsap.set(navRef.current, { clearProps: "all" });
+        },
+      }
     );
   }, { scope: navRef });
 
