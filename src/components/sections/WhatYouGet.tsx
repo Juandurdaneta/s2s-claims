@@ -1,7 +1,7 @@
 "use client";
 
 import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
+import { CTAButton } from "@/components/ui/CTAButton";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { StaggerChildren, StaggerItem } from "@/components/animations/StaggerChildren";
 import { Check } from "lucide-react";
@@ -81,7 +81,7 @@ export function WhatYouGet() {
           <p className="mb-6 text-cream-200/60">
             Ready to get the settlement you deserve?
           </p>
-          <Button href="/contact">Claim Your FREE Policy Review</Button>
+          <CTAButton />
         </FadeIn>
       </Container>
     </section>

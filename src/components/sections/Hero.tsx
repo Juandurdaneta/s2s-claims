@@ -4,7 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
+import { CTAButton } from "@/components/ui/CTAButton";
 import { Check } from "lucide-react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
@@ -370,9 +370,7 @@ export function Hero() {
             className="hero-cta mt-10"
             style={reducedMotion ? {} : { opacity: 0 }}
           >
-            <Button href="/contact" size="lg">
-              Claim Your FREE Claim Review
-            </Button>
+            <CTAButton />
           </div>
 
           {/* Trust Strip */}

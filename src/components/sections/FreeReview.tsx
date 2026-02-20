@@ -1,7 +1,7 @@
 "use client";
 
 import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
+import { CTAButton } from "@/components/ui/CTAButton";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { StaggerChildren, StaggerItem } from "@/components/animations/StaggerChildren";
 import { Clock, TrendingUp, AlertCircle } from "lucide-react";
@@ -72,14 +72,12 @@ export function FreeReview() {
           ))}
         </StaggerChildren>
 
-        <FadeIn delay={0.3} className="mx-auto mt-12 max-w-2xl text-center">
+        <FadeIn delay={0.3} className="mt-12 text-center">
           <p className="mb-6 text-sm font-semibold uppercase tracking-wider text-forest-700/60">
             This is ONLY for homeowners who are serious about getting their full
             settlement.
           </p>
-          <Button href="/contact" size="lg">
-            Claim Your FREE Policy Review
-          </Button>
+          <CTAButton />
         </FadeIn>
       </Container>
     </section>

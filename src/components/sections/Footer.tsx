@@ -39,7 +39,7 @@ export function Footer() {
               Licensed Public Adjusters
             </p>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-cream-200/40">
-              Fighting for Texas homeowners to get the full insurance settlement
+              Fighting for American homeowners to get the full insurance settlement
               they deserve.
             </p>
 
@@ -65,7 +65,7 @@ export function Footer() {
             <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-forest-800/50 border border-forest-700/30 px-4 py-2">
               <MapPin className="h-3.5 w-3.5 text-gold-500" />
               <span className="text-xs font-medium text-cream-200/50">
-                Serving Texas Homeowners
+                Serving American Homeowners
               </span>
             </div>
           </div>

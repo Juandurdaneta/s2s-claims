@@ -67,17 +67,15 @@ export function PainPoints() {
         </StaggerChildren>
 
         <FadeIn delay={0.3} className="mx-auto mt-16 max-w-3xl text-center">
-          <div className="rounded-2xl border border-gold-500/20 bg-gold-500/5 p-8">
-            <p className="text-lg leading-relaxed text-cream-200/80">
-              We&apos;ve done all the hard work for you. All you need to do is follow
-              our step-by-step blueprint and you&apos;ll get the settlement you
-              deserve.{" "}
-              <span className="font-semibold text-gold-400">
-                When you work with someone who knows how insurance companies
-                operate from the inside, you get drastically better results.
-              </span>
-            </p>
-          </div>
+          <p className="text-lg leading-relaxed text-cream-200/80">
+            We&apos;ve done all the hard work for you. All you need to do is follow
+            our step-by-step blueprint and you&apos;ll get the settlement you
+            deserve.{" "}
+            <span className="font-semibold text-gold-400">
+              When you work with someone who knows how insurance companies
+              operate from the inside, you get drastically better results.
+            </span>
+          </p>
         </FadeIn>
       </Container>
     </section>

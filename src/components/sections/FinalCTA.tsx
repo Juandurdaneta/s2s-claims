@@ -2,6 +2,7 @@
 
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { CTAButton } from "@/components/ui/CTAButton";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Phone } from "lucide-react";
 import { PHONE_NUMBER, PHONE_HREF } from "@/lib/utils";
@@ -34,9 +35,7 @@ export function FinalCTA() {
 
           <FadeIn delay={0.2}>
             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-              <Button href="/contact" size="lg">
-                Claim Your FREE Review
-              </Button>
+              <CTAButton />
               <Button
                 href={PHONE_HREF}
                 variant="ghost"

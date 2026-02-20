@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
+import { CTAButton } from "@/components/ui/CTAButton";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
@@ -13,7 +13,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 const STATS = [
   { value: 100, suffix: "+", label: "Successful Claims" },
-  { prefix: "$", value: 150, suffix: "K+", label: "In Settlements" },
   {
     prefix: "$",
     value: 35,
@@ -24,6 +23,7 @@ const STATS = [
     ],
     label: "Average Increase",
   },
+  { prefix: "$", value: 150, suffix: "K+", label: "In Settlements" },
 ];
 
 export function Problem() {
@@ -117,9 +117,7 @@ export function Problem() {
         </div>
 
         <FadeIn delay={0.3} className="mt-12 text-center">
-          <Button href="/contact">
-            Claim Your FREE Policy Review
-          </Button>
+          <CTAButton />
         </FadeIn>
       </Container>
     </section>

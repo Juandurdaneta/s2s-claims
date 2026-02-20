@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
+import { CTAButton } from "@/components/ui/CTAButton";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import { FadeIn } from "@/components/animations/FadeIn";
@@ -288,9 +288,9 @@ export function ServicesContent() {
             className={step.dark ? "bg-forest-950 py-20 md:py-28" : "bg-cream-100 py-20 md:py-28"}
           >
             <Container>
-              <div className="mx-auto max-w-4xl">
+              <div className="mx-auto max-w-4xl text-center">
                 <FadeIn>
-                  <div className="flex items-center gap-4 mb-2">
+                  <div className="flex items-center justify-center gap-4 mb-2">
                     <div
                       className={`flex h-12 w-12 items-center justify-center rounded-xl ${
                         step.dark
@@ -359,7 +359,7 @@ export function ServicesContent() {
                 )}
 
                 {/* Points list */}
-                <StaggerChildren className="mt-8 space-y-3" stagger={0.06}>
+                <StaggerChildren className="mt-8 inline-flex flex-col space-y-3" stagger={0.06}>
                   {step.points.map((point, j) => (
                     <StaggerItem key={j}>
                       <div className="flex items-start gap-3">
@@ -415,7 +415,7 @@ export function ServicesContent() {
                 {/* CTA */}
                 {step.cta && (
                   <FadeIn delay={0.2} className="mt-8">
-                    <Button href="/contact">{step.cta}</Button>
+                    <CTAButton />
                   </FadeIn>
                 )}
               </div>
@@ -466,7 +466,7 @@ export function ServicesContent() {
           </StaggerChildren>
 
           <FadeIn delay={0.3} className="mt-12 text-center">
-            <Button href="/contact">Claim Your FREE Claim Review</Button>
+            <CTAButton />
           </FadeIn>
         </Container>
       </section>

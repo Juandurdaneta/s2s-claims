@@ -3,8 +3,8 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
-import { ChevronDown, Phone, MessageCircle } from "lucide-react";
+import { CTAButton } from "@/components/ui/CTAButton";
+import { ChevronDown, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const FAQ_ITEMS = [
@@ -210,10 +210,7 @@ export function FAQ() {
                   pressure, no obligation.
                 </p>
                 <div className="mt-5 flex flex-col gap-3">
-                  <Button href="/contact" size="default" variant="primary">
-                    <MessageCircle className="h-4 w-4" />
-                    Free Claim Review
-                  </Button>
+                  <CTAButton />
                   <a
                     href="tel:5551234567"
                     className="inline-flex items-center justify-center gap-2 rounded-full border border-forest-800/15 px-5 py-2.5 text-sm font-medium text-forest-800/70 transition-colors hover:border-forest-800/30 hover:text-forest-900"

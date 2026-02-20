@@ -1,7 +1,7 @@
 "use client";
 
 import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
+import { CTAButton } from "@/components/ui/CTAButton";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Shield, User } from "lucide-react";
 
@@ -54,6 +54,11 @@ export function About() {
                   <span className="font-bold text-gold-600">FOR</span> homeowners
                   instead of against them.
                 </p>
+
+                <p className="mt-2 font-display text-xl italic leading-relaxed text-forest-900/80">
+                  &ldquo;He knows exactly how the system works because he was
+                  part of it.&rdquo;
+                </p>
               </div>
             </FadeIn>
 
@@ -76,14 +81,6 @@ export function About() {
                     </p>
                     <p className="mt-1 text-xs text-forest-700/60">
                       Former Director-Level, Insurance Adjusting Firm
-                    </p>
-                  </div>
-
-                  {/* Quote */}
-                  <div className="mt-6 rounded-2xl bg-forest-900 p-6">
-                    <p className="font-display text-lg italic leading-relaxed text-cream-200">
-                      &ldquo;He knows exactly how the system works because he was
-                      part of it.&rdquo;
                     </p>
                   </div>
 
@@ -117,7 +114,7 @@ export function About() {
         </div>
 
         <FadeIn delay={0.2} className="mt-16 text-center">
-          <Button href="/contact">Claim Your FREE Policy Review</Button>
+          <CTAButton />
         </FadeIn>
       </Container>
     </section>
