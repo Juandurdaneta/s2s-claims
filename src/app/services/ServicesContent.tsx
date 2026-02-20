@@ -424,11 +424,11 @@ export function ServicesContent() {
           trigger: sectionRef.current,
           pin: true,
           start: "top top",
-          end: "+=800vh",
+          end: "+=1200vh",
           scrub: 1,
           snap: {
             snapTo: 1 / 4,
-            duration: { min: 0.2, max: 0.6 },
+            duration: { min: 0.3, max: 0.8 },
             ease: "power1.inOut",
           },
         },
@@ -540,7 +540,7 @@ export function ServicesContent() {
           />
 
           {/* Content layer */}
-          <div className="relative flex h-screen flex-col justify-center pt-28 pb-6 md:pt-32">
+          <div className="relative flex h-screen flex-col justify-center py-24">
             <Container>
               <div className="mx-auto max-w-4xl text-center">
                 {/* Step Indicator */}
@@ -577,6 +577,7 @@ export function ServicesContent() {
                       ref={(el) => {
                         panelRefs.current[i] = el;
                       }}
+                      className="flex flex-col justify-center"
                       style={{ gridArea: "1 / 1" }}
                     >
                       <StepPanel step={step} />
