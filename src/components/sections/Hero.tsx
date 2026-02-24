@@ -10,7 +10,7 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const TRUST_ITEMS = [
   "100+ Claims Handled",
-  "$35K–$60K Average Increase",
+  "$35K+ Average Increase",
   "You Only Pay If We Win",
 ];
 
@@ -30,51 +30,6 @@ const HEADLINE_LINES = [
   },
 ];
 
-// Seeded pseudo-random for deterministic SSR/client output
-function seededRandom(seed: number) {
-  const x = Math.sin(seed + 1) * 10000;
-  return x - Math.floor(x);
-}
-
-// Floating gold particles for ambient post-reveal atmosphere
-function GoldParticles() {
-  const particles = Array.from({ length: 18 }, (_, i) => {
-    const r1 = seededRandom(i * 7 + 1);
-    const r2 = seededRandom(i * 13 + 2);
-    const r3 = seededRandom(i * 19 + 3);
-    const r4 = seededRandom(i * 31 + 4);
-    const r5 = seededRandom(i * 43 + 5);
-    const r6 = seededRandom(i * 59 + 6);
-    return {
-      id: i,
-      size: r1 * 3 + 1,
-      left: `${r2 * 100}%`,
-      top: `${r3 * 100}%`,
-      delay: r4 * 6,
-      duration: r5 * 8 + 10,
-      opacity: r6 * 0.3 + 0.05,
-    };
-  });
-
-  return (
-    <>
-      {particles.map((p) => (
-        <div
-          key={p.id}
-          className="hero-particle absolute rounded-full bg-gold-400"
-          style={{
-            width: p.size,
-            height: p.size,
-            left: p.left,
-            top: p.top,
-            opacity: 0,
-            animation: `particle-drift ${p.duration}s ease-in-out ${p.delay}s infinite`,
-          }}
-        />
-      ))}
-    </>
-  );
-}
 
 export function Hero() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -99,7 +54,6 @@ export function Hero() {
       const cta = section.querySelector(".hero-cta");
       const trustItems = section.querySelectorAll(".hero-trust-item");
       const vignette = section.querySelector(".hero-vignette");
-      const particles = section.querySelectorAll(".hero-particle");
 
       const tl = gsap.timeline({
         defaults: { ease: "power3.out" },
@@ -213,20 +167,6 @@ export function Hero() {
           2.3
         )
 
-        // Phase 8: Gold particles fade in for ambient state
-        .fromTo(
-          particles,
-          { opacity: 0 },
-          {
-            opacity: (i: number) => {
-              const el = particles[i] as HTMLElement;
-              return parseFloat(el.style.opacity) || 0.15;
-            },
-            duration: 1.5,
-            stagger: { amount: 1, from: "random" },
-          },
-          2.2
-        );
     },
     { scope: sectionRef }
   );
@@ -292,8 +232,6 @@ export function Hero() {
           }}
         />
 
-        {/* Gold particles */}
-        <GoldParticles />
       </div>
 
       {/* ── Main Content ── */}
@@ -306,7 +244,7 @@ export function Hero() {
           >
             <span className="inline-flex items-center gap-2 rounded-full bg-gold-500/15 text-gold-400 border border-gold-500/30 px-4 py-1.5 text-sm font-medium">
               <Check className="h-3.5 w-3.5" />
-              Licensed Public Adjusters — Texas
+              Licensed Public Adjusters
             </span>
           </div>
 
@@ -316,7 +254,7 @@ export function Hero() {
             style={{ perspective: "800px" }}
           >
             {HEADLINE_LINES.map((line, lineIndex) => (
-              <span key={lineIndex} className="block overflow-hidden">
+              <span key={lineIndex} className="block overflow-hidden pb-[0.15em]">
                 <span
                   className={`hero-headline-inner block will-change-transform ${
                     reducedMotion ? "!transform-none" : ""

@@ -179,7 +179,7 @@ export function WhyChooseUs() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="mt-6 font-display text-3xl font-bold leading-tight text-cream-50 sm:text-4xl md:text-5xl"
           >
-            Why Texas Homeowners Choose{" "}
+            Why Homeowners Choose{" "}
             <span className="text-gold-400">S2S Claims</span>
           </motion.h2>
 
@@ -190,7 +190,7 @@ export function WhyChooseUs() {
             className="mt-4 text-base leading-relaxed text-cream-200/50 md:text-lg"
           >
             We combine insider knowledge, proven results, and zero-risk pricing
-            so you can focus on rebuilding — not fighting.
+            so you can focus on rebuilding, not fighting.
           </motion.p>
         </div>
 

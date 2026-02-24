@@ -46,24 +46,6 @@
   50% { opacity: 0.7; transform: scale(1.05); }
 }
 
-@keyframes particle-drift {
-  0%, 100% {
-    transform: translateY(0) translateX(0);
-    opacity: inherit;
-  }
-  25% {
-    transform: translateY(-30px) translateX(15px);
-    opacity: inherit;
-  }
-  50% {
-    transform: translateY(-10px) translateX(-20px);
-    opacity: 0.05;
-  }
-  75% {
-    transform: translateY(-40px) translateX(10px);
-    opacity: inherit;
-  }
-}
 
 /* Smooth scrolling */
 html {

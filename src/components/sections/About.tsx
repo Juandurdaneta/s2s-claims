@@ -43,22 +43,24 @@ export function About() {
                 </p>
 
                 <p className="text-lg leading-relaxed text-forest-800/80">
-                  He saw firsthand how claims are designed to fail the
-                  policyholder. How adjusters are trained to find reasons to deny
-                  or minimize coverage. How guidelines are written to give you the
-                  bottom dollar amount while staying technically &ldquo;legal.&rdquo;
-                </p>
-
-                <p className="text-lg leading-relaxed text-forest-800/80">
                   That&apos;s why he became a public adjuster — to fight{" "}
                   <span className="font-bold text-gold-600">FOR</span> homeowners
                   instead of against them.
                 </p>
 
-                <p className="mt-2 font-display text-xl italic leading-relaxed text-forest-900/80">
-                  &ldquo;He knows exactly how the system works because he was
-                  part of it.&rdquo;
-                </p>
+                <div className="mt-2 font-display text-xl italic leading-relaxed text-forest-900/80">
+                  <p>
+                    &ldquo;He knows exactly how the system works because he was
+                    part of it.
+                  </p>
+                  <p className="mt-4">
+                    He saw firsthand how claims are designed to fail the
+                    policyholder. How adjusters are trained to find reasons to deny
+                    or minimize coverage. How guidelines are written to give you the
+                    bottom dollar amount while staying technically
+                    &lsquo;legal.&rsquo;&rdquo;
+                  </p>
+                </div>
               </div>
             </FadeIn>
 
