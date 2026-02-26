@@ -19,6 +19,9 @@ const playfairDisplay = Playfair_Display({
 });
 
 export const metadata: Metadata = {
+  icons: {
+    icon: "/logos/s2s_logo2.svg",
+  },
   title: {
     default: "S2S Claims | Licensed Public Adjusters — Texas",
     template: "%s | S2S Claims",
