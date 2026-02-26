@@ -1,7 +1,8 @@
 import { Container } from "@/components/ui/Container";
-import { Shield, MapPin, Phone, Mail } from "lucide-react";
+import { MapPin, Phone, Mail } from "lucide-react";
 import { PHONE_NUMBER, PHONE_HREF, EMAIL } from "@/lib/utils";
 import Link from "next/link";
+import Image from "next/image";
 
 const FOOTER_LINKS = {
   Company: [
@@ -28,12 +29,13 @@ export function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="inline-flex items-center gap-2.5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gold-500/15 border border-gold-500/30">
-                <Shield className="h-5 w-5 text-gold-400" />
-              </div>
-              <span className="text-lg font-bold text-cream-50 tracking-tight">
-                S2S Claims
-              </span>
+              <Image
+                src="/logos/s2s_logo2.svg"
+                alt="S2S Claims"
+                width={140}
+                height={40}
+                className="h-10 w-auto"
+              />
             </Link>
             <p className="mt-3 text-sm text-cream-200/50">
               Licensed Public Adjusters

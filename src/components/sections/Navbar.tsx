@@ -2,7 +2,8 @@
 
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Phone, Shield } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
@@ -97,14 +98,14 @@ export function Navbar() {
           <div className="flex h-18 items-center justify-between lg:h-20">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gold-500/15 border border-gold-500/30 group-hover:bg-gold-500/25 transition-colors">
-                <Shield className="h-5 w-5 text-gold-400" />
-              </div>
-              <div>
-                <span className="text-lg font-bold text-cream-50 tracking-tight">
-                  S2S Claims
-                </span>
-              </div>
+              <Image
+                src="/logos/s2s_logo2.svg"
+                alt="S2S Claims"
+                width={140}
+                height={40}
+                className="h-10 w-auto"
+                priority
+              />
             </Link>
 
             {/* Desktop Navigation */}
