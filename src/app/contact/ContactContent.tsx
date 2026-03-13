@@ -70,7 +70,7 @@ export function ContactContent() {
           <div className="absolute -top-32 right-0 h-80 w-80 rounded-full bg-gold-500/8 blur-3xl" />
         </div>
 
-        <Container className="relative z-10">
+        <Container className="relative z-10 px-5 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <Badge variant="gold" className="mb-6">
               <Shield className="h-3.5 w-3.5" />
@@ -89,7 +89,7 @@ export function ContactContent() {
 
       {/* Form Section */}
       <section className="overflow-hidden bg-cream-100 py-16 md:py-24">
-        <Container>
+        <Container className="px-5 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-6xl">
             <div className="grid gap-12 lg:grid-cols-3 lg:gap-16">
               {/* Form */}
