@@ -62,19 +62,21 @@ html {
   }
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: var(--color-forest-950);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--color-forest-600);
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-forest-500);
+/* Custom scrollbar — desktop only to avoid iOS Safari layout issues */
+@media (hover: hover) and (pointer: fine) {
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-forest-950);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-forest-600);
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-forest-500);
+  }
 }
 
 /* Selection */

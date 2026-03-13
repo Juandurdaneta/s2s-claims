@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { DM_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/sections/Navbar";
@@ -58,6 +58,11 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -66,11 +71,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${dmSans.variable} ${playfairDisplay.variable}`}>
       <body className="font-body antialiased">
-        <div className="relative w-full overflow-x-hidden">
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-        </div>
+        <Navbar />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );
