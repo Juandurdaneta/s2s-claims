@@ -48,6 +48,11 @@ const FAQ_ITEMS = [
     answer:
       "While we're based in Texas and most of our clients are here, we're expanding nationwide. Contact us to see if we can help in your state.",
   },
+  {
+    question: "Will I need an attorney?",
+    answer:
+      "If needed, we can refer an attorney if you are being misrepresented, and we will work with them closely to ensure your claim gets handled properly.",
+  },
 ];
 
 function FAQItem({
@@ -209,15 +214,8 @@ export function FAQ() {
                   Our team is here to help. Get a free consultation — no
                   pressure, no obligation.
                 </p>
-                <div className="mt-5 flex flex-col gap-3">
+                <div className="mt-5">
                   <CTAButton />
-                  <a
-                    href="tel:5551234567"
-                    className="inline-flex items-center justify-center gap-2 rounded-full border border-forest-800/15 px-5 py-2.5 text-sm font-medium text-forest-800/70 transition-colors hover:border-forest-800/30 hover:text-forest-900"
-                  >
-                    <Phone className="h-3.5 w-3.5" />
-                    (555) 123-4567
-                  </a>
                 </div>
               </motion.div>
             </div>
