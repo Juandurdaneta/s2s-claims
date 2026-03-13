@@ -68,18 +68,10 @@ export function ContactContent() {
   const labelClasses = "block text-sm font-medium text-forest-800 mb-1.5";
 
   return (
-    <div style={{ overflowX: "hidden", width: "100%" }}>
+    <>
       {/* Hero */}
-      <section
-        style={{
-          backgroundColor: "var(--color-forest-950)",
-          padding: "8rem 1rem 4rem",
-          textAlign: "center",
-          width: "100%",
-          boxSizing: "border-box",
-        }}
-      >
-        <div style={{ maxWidth: "48rem", margin: "0 auto" }}>
+      <section className="bg-forest-950 pt-32 pb-16 text-center px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-3xl">
           <Badge variant="gold" className="mb-6">
             <Shield className="h-3.5 w-3.5" />
             Free Consultation
@@ -95,16 +87,8 @@ export function ContactContent() {
       </section>
 
       {/* Form Section */}
-      <section
-        style={{
-          backgroundColor: "var(--color-cream-100)",
-          padding: "3rem 1rem",
-          width: "100%",
-          boxSizing: "border-box",
-        }}
-        className="md:py-24"
-      >
-        <div style={{ maxWidth: "72rem", margin: "0 auto" }}>
+      <section className="bg-cream-100 py-12 px-4 sm:px-6 md:py-24 lg:px-8">
+        <div className="mx-auto max-w-7xl">
           <div className="grid gap-10 lg:grid-cols-3 lg:gap-16">
             {/* Form Column */}
             <div className="lg:col-span-2">
@@ -361,6 +345,6 @@ export function ContactContent() {
           </div>
         </div>
       </section>
-    </div>
+    </>
   );
 }

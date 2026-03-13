@@ -72,14 +72,13 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${dmSans.variable} ${playfairDisplay.variable}`}
-      style={{ overflowX: "hidden", maxWidth: "100vw" }}
     >
       <body
         className="font-body antialiased"
-        style={{ overflowX: "hidden", maxWidth: "100vw" }}
+        style={{ overflowX: "hidden" }}
       >
         <Navbar />
-        <main style={{ overflowX: "hidden" }}>{children}</main>
+        <main>{children}</main>
         <Footer />
       </body>
     </html>
