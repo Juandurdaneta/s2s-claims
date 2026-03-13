@@ -48,6 +48,11 @@
 
 
 /* Smooth scrolling */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -107,5 +112,4 @@ body {
   color: white;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
 }
