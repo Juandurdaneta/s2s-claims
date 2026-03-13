@@ -35,8 +35,10 @@ export function About() {
                   </span>
                 </div>
 
-                <p className="text-lg leading-relaxed text-forest-800/80">
-                  <span className="whitespace-nowrap">Here&apos;s what makes us different:</span>{" "}
+                <p className="text-lg font-semibold text-forest-900">
+                  Here&apos;s what makes us different:
+                </p>
+                <p className="mt-2 text-lg leading-relaxed text-forest-800/80">
                   Our founder,{" "}
                   <span className="font-bold text-forest-900">Paden Wright</span>,
                   had director level responsibilities and was a field captain at
