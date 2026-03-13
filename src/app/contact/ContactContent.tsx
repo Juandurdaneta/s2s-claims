@@ -65,7 +65,7 @@ export function ContactContent() {
   return (
     <>
       {/* Hero */}
-      <section className="relative bg-forest-950 pt-32 pb-16 md:pt-40 md:pb-20">
+      <section className="relative overflow-hidden bg-forest-950 pt-32 pb-16 md:pt-40 md:pb-20">
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <div className="absolute -top-32 right-0 h-80 w-80 rounded-full bg-gold-500/8 blur-3xl" />
         </div>
@@ -88,7 +88,7 @@ export function ContactContent() {
       </section>
 
       {/* Form Section */}
-      <section className="bg-cream-100 py-16 md:py-24">
+      <section className="overflow-hidden bg-cream-100 py-16 md:py-24">
         <Container>
           <div className="mx-auto max-w-6xl">
             <div className="grid gap-12 lg:grid-cols-3 lg:gap-16">
