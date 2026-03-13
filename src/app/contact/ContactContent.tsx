@@ -11,6 +11,7 @@ import {
   DollarSign,
   TrendingUp,
   CheckCircle2,
+  ChevronDown,
 } from "lucide-react";
 import { PHONE_NUMBER, PHONE_HREF } from "@/lib/utils";
 import { cn } from "@/lib/utils";
@@ -64,22 +65,26 @@ export function ContactContent() {
   };
 
   const inputClasses =
-    "block w-full rounded-xl border border-cream-300/60 bg-white px-4 py-3.5 text-forest-900 text-sm placeholder:text-forest-700/30 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/20 focus:outline-none";
+    "block w-full min-w-0 rounded-lg border border-cream-300 bg-white px-3 py-3 text-forest-900 text-sm placeholder:text-forest-700/30 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/20 focus:outline-none transition-colors";
+  const selectClasses = cn(
+    inputClasses,
+    "appearance-none cursor-pointer"
+  );
   const labelClasses = "block text-sm font-medium text-forest-800 mb-1.5";
 
   return (
     <>
       {/* Hero */}
-      <section className="bg-forest-950 pt-32 pb-16 text-center px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl">
-          <Badge variant="gold" className="mb-6">
+      <section className="bg-forest-950 px-5 pt-28 pb-12 text-center sm:px-8 sm:pt-32 sm:pb-16">
+        <div className="mx-auto max-w-2xl">
+          <Badge variant="gold" className="mb-5">
             <Shield className="h-3.5 w-3.5" />
             Free Consultation
           </Badge>
-          <h1 className="font-display text-3xl font-bold leading-tight text-cream-50 sm:text-4xl md:text-5xl lg:text-6xl">
+          <h1 className="font-display text-2xl font-bold leading-tight text-cream-50 sm:text-3xl md:text-4xl lg:text-5xl">
             Ready To Get What You&apos;re Actually Owed?
           </h1>
-          <p className="mt-4 text-base text-cream-200/60 sm:mt-6 sm:text-lg">
+          <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-cream-200/60 sm:mt-5 sm:max-w-lg sm:text-base">
             Fill out the form below to schedule your FREE claim review. No
             obligations, no pressure — just expert guidance.
           </p>
@@ -87,11 +92,11 @@ export function ContactContent() {
       </section>
 
       {/* Form Section */}
-      <section className="bg-cream-100 py-12 px-4 sm:px-6 md:py-24 lg:px-8">
-        <div className="mx-auto max-w-7xl">
-          <div className="grid gap-10 lg:grid-cols-3 lg:gap-16">
+      <section className="bg-cream-100 px-5 py-10 sm:px-8 md:py-20 lg:py-24">
+        <div className="mx-auto max-w-5xl">
+          <div className="flex flex-col gap-10 lg:flex-row lg:gap-14">
             {/* Form Column */}
-            <div className="lg:col-span-2">
+            <div className="min-w-0 flex-1">
               {submitted ? (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -111,196 +116,204 @@ export function ContactContent() {
                   </p>
                 </motion.div>
               ) : (
-                <form
-                  onSubmit={handleSubmit}
-                  className="rounded-2xl border border-cream-300/60 bg-white p-4 shadow-lg sm:p-8 md:p-10"
-                >
+                <div className="md:rounded-2xl md:border md:border-cream-300/60 md:bg-white md:p-8 md:shadow-lg lg:p-10">
                   <h2 className="font-display text-xl font-bold text-forest-900 sm:text-2xl">
                     Schedule Your FREE Claim Review
                   </h2>
-                  <p className="mt-1 text-sm text-forest-800/60">
+                  <p className="mt-1 text-sm text-forest-800/50">
                     Fields marked with * are required
                   </p>
 
-                  <div className="mt-6 space-y-4 sm:mt-8 sm:grid sm:grid-cols-2 sm:gap-5 sm:space-y-0">
-                    {/* Full Name - always full width */}
-                    <div className="sm:col-span-2">
-                      <label htmlFor="fullName" className={labelClasses}>
-                        Full Name *
-                      </label>
-                      <input
-                        id="fullName"
-                        type="text"
-                        required
-                        placeholder="John Smith"
-                        value={form.fullName}
-                        onChange={(e) =>
-                          updateField("fullName", e.target.value)
-                        }
-                        className={inputClasses}
-                      />
+                  <form onSubmit={handleSubmit} className="mt-6 sm:mt-8">
+                    <div className="space-y-5 md:grid md:grid-cols-2 md:gap-x-5 md:gap-y-5 md:space-y-0">
+                      {/* Full Name */}
+                      <div className="md:col-span-2">
+                        <label htmlFor="fullName" className={labelClasses}>
+                          Full Name *
+                        </label>
+                        <input
+                          id="fullName"
+                          type="text"
+                          required
+                          placeholder="John Smith"
+                          value={form.fullName}
+                          onChange={(e) =>
+                            updateField("fullName", e.target.value)
+                          }
+                          className={inputClasses}
+                        />
+                      </div>
+
+                      {/* Phone */}
+                      <div>
+                        <label htmlFor="phone" className={labelClasses}>
+                          Phone Number *
+                        </label>
+                        <input
+                          id="phone"
+                          type="tel"
+                          required
+                          placeholder="(830) 214-2701"
+                          value={form.phone}
+                          onChange={(e) =>
+                            updateField("phone", e.target.value)
+                          }
+                          className={inputClasses}
+                        />
+                      </div>
+
+                      {/* Email */}
+                      <div>
+                        <label htmlFor="email" className={labelClasses}>
+                          Email Address *
+                        </label>
+                        <input
+                          id="email"
+                          type="email"
+                          required
+                          placeholder="john@example.com"
+                          value={form.email}
+                          onChange={(e) =>
+                            updateField("email", e.target.value)
+                          }
+                          className={inputClasses}
+                        />
+                      </div>
+
+                      {/* Damage Type */}
+                      <div className="relative">
+                        <label htmlFor="damageType" className={labelClasses}>
+                          Type of Damage *
+                        </label>
+                        <select
+                          id="damageType"
+                          required
+                          value={form.damageType}
+                          onChange={(e) =>
+                            updateField("damageType", e.target.value)
+                          }
+                          className={selectClasses}
+                        >
+                          <option value="">Select damage type</option>
+                          {DAMAGE_TYPES.map((type) => (
+                            <option key={type} value={type}>
+                              {type}
+                            </option>
+                          ))}
+                        </select>
+                        <ChevronDown className="pointer-events-none absolute right-3 bottom-3.5 h-4 w-4 text-forest-700/40" />
+                      </div>
+
+                      {/* Has Filed */}
+                      <div className="relative">
+                        <label htmlFor="hasFiled" className={labelClasses}>
+                          Have you filed a claim? *
+                        </label>
+                        <select
+                          id="hasFiled"
+                          required
+                          value={form.hasFiled}
+                          onChange={(e) =>
+                            updateField("hasFiled", e.target.value)
+                          }
+                          className={selectClasses}
+                        >
+                          <option value="">Select</option>
+                          <option value="yes">Yes</option>
+                          <option value="no">No</option>
+                        </select>
+                        <ChevronDown className="pointer-events-none absolute right-3 bottom-3.5 h-4 w-4 text-forest-700/40" />
+                      </div>
+
+                      {/* Current Status */}
+                      <div className="relative">
+                        <label htmlFor="status" className={labelClasses}>
+                          Current Status *
+                        </label>
+                        <select
+                          id="status"
+                          required
+                          value={form.status}
+                          onChange={(e) =>
+                            updateField("status", e.target.value)
+                          }
+                          className={selectClasses}
+                        >
+                          <option value="">Select status</option>
+                          {CLAIM_STATUSES.map((status) => (
+                            <option key={status} value={status}>
+                              {status}
+                            </option>
+                          ))}
+                        </select>
+                        <ChevronDown className="pointer-events-none absolute right-3 bottom-3.5 h-4 w-4 text-forest-700/40" />
+                      </div>
+
+                      {/* Date of Loss */}
+                      <div>
+                        <label htmlFor="contactTime" className={labelClasses}>
+                          Date of Loss
+                        </label>
+                        <input
+                          type="date"
+                          id="contactTime"
+                          value={form.contactTime}
+                          onChange={(e) =>
+                            updateField("contactTime", e.target.value)
+                          }
+                          className={inputClasses}
+                        />
+                      </div>
+
+                      {/* Description */}
+                      <div className="md:col-span-2">
+                        <label htmlFor="description" className={labelClasses}>
+                          Brief Description of Damage
+                        </label>
+                        <textarea
+                          id="description"
+                          rows={3}
+                          placeholder="Tell us briefly about the damage to your property..."
+                          value={form.description}
+                          onChange={(e) =>
+                            updateField("description", e.target.value)
+                          }
+                          className={cn(inputClasses, "resize-none")}
+                        />
+                      </div>
                     </div>
 
-                    {/* Phone */}
-                    <div>
-                      <label htmlFor="phone" className={labelClasses}>
-                        Phone Number *
-                      </label>
-                      <input
-                        id="phone"
-                        type="tel"
-                        required
-                        placeholder="(830) 214-2701"
-                        value={form.phone}
-                        onChange={(e) => updateField("phone", e.target.value)}
-                        className={inputClasses}
-                      />
-                    </div>
-
-                    {/* Email */}
-                    <div>
-                      <label htmlFor="email" className={labelClasses}>
-                        Email Address *
-                      </label>
-                      <input
-                        id="email"
-                        type="email"
-                        required
-                        placeholder="john@example.com"
-                        value={form.email}
-                        onChange={(e) => updateField("email", e.target.value)}
-                        className={inputClasses}
-                      />
-                    </div>
-
-                    {/* Damage Type */}
-                    <div>
-                      <label htmlFor="damageType" className={labelClasses}>
-                        Type of Damage *
-                      </label>
-                      <select
-                        id="damageType"
-                        required
-                        value={form.damageType}
-                        onChange={(e) =>
-                          updateField("damageType", e.target.value)
-                        }
-                        className={cn(inputClasses, "appearance-none")}
+                    {/* Submit */}
+                    <div className="mt-7 sm:mt-8">
+                      <Button
+                        type="submit"
+                        size="lg"
+                        className="w-full sm:w-auto"
                       >
-                        <option value="">Select damage type</option>
-                        {DAMAGE_TYPES.map((type) => (
-                          <option key={type} value={type}>
-                            {type}
-                          </option>
-                        ))}
-                      </select>
+                        Get My FREE Claim Review Now
+                      </Button>
                     </div>
 
-                    {/* Has Filed */}
-                    <div>
-                      <label htmlFor="hasFiled" className={labelClasses}>
-                        Have you filed a claim? *
-                      </label>
-                      <select
-                        id="hasFiled"
-                        required
-                        value={form.hasFiled}
-                        onChange={(e) =>
-                          updateField("hasFiled", e.target.value)
-                        }
-                        className={cn(inputClasses, "appearance-none")}
-                      >
-                        <option value="">Select</option>
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                      </select>
-                    </div>
-
-                    {/* Current Status */}
-                    <div>
-                      <label htmlFor="status" className={labelClasses}>
-                        Current Status *
-                      </label>
-                      <select
-                        id="status"
-                        required
-                        value={form.status}
-                        onChange={(e) => updateField("status", e.target.value)}
-                        className={cn(inputClasses, "appearance-none")}
-                      >
-                        <option value="">Select status</option>
-                        {CLAIM_STATUSES.map((status) => (
-                          <option key={status} value={status}>
-                            {status}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-
-                    {/* Date of Loss */}
-                    <div>
-                      <label htmlFor="contactTime" className={labelClasses}>
-                        Date of Loss
-                      </label>
-                      <input
-                        type="date"
-                        id="contactTime"
-                        value={form.contactTime}
-                        onChange={(e) =>
-                          updateField("contactTime", e.target.value)
-                        }
-                        className={inputClasses}
-                      />
-                    </div>
-
-                    {/* Description - always full width */}
-                    <div className="sm:col-span-2">
-                      <label htmlFor="description" className={labelClasses}>
-                        Brief Description of Damage
-                      </label>
-                      <textarea
-                        id="description"
-                        rows={4}
-                        placeholder="Tell us briefly about the damage to your property..."
-                        value={form.description}
-                        onChange={(e) =>
-                          updateField("description", e.target.value)
-                        }
-                        className={cn(inputClasses, "resize-none")}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Submit */}
-                  <div className="mt-6 sm:mt-8">
-                    <Button
-                      type="submit"
-                      size="lg"
-                      className="w-full sm:w-auto"
-                    >
-                      Get My FREE Claim Review Now
-                    </Button>
-                  </div>
-
-                  {/* Privacy */}
-                  <p className="mt-3 text-xs text-forest-700/40">
-                    By submitting this form, you agree to be contacted by S2S
-                    Claims regarding your claim. We respect your privacy and
-                    will never share your information.
-                  </p>
-                </form>
+                    {/* Privacy */}
+                    <p className="mt-3 text-xs leading-relaxed text-forest-700/40">
+                      By submitting this form, you agree to be contacted by S2S
+                      Claims regarding your claim. We respect your privacy and
+                      will never share your information.
+                    </p>
+                  </form>
+                </div>
               )}
             </div>
 
             {/* Sidebar */}
-            <div className="lg:col-span-1">
-              <div className="space-y-5 lg:sticky lg:top-28">
+            <div className="w-full shrink-0 lg:w-72 xl:w-80">
+              <div className="space-y-4 lg:sticky lg:top-28">
                 {/* Why Free */}
-                <div className="rounded-2xl border border-cream-300/60 bg-white p-5 shadow-md sm:p-6">
-                  <h3 className="font-bold text-forest-900">
+                <div className="rounded-2xl border border-cream-300/60 bg-white p-5 shadow-sm">
+                  <h3 className="text-sm font-bold text-forest-900">
                     Why is this free?
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-forest-800/60">
+                  <p className="mt-2 text-sm leading-relaxed text-forest-800/55">
                     This consultation is completely free and there&apos;s no
                     obligation to work with us. We&apos;ll give you honest
                     feedback about your claim — even if we can&apos;t help,
@@ -309,17 +322,17 @@ export function ContactContent() {
                 </div>
 
                 {/* Mini stats */}
-                <div className="rounded-2xl border border-cream-300/60 bg-white p-5 shadow-md sm:p-6">
-                  <div className="space-y-4">
+                <div className="rounded-2xl border border-cream-300/60 bg-white p-5 shadow-sm">
+                  <div className="flex flex-row items-center justify-around gap-3 lg:flex-col lg:items-start lg:justify-start lg:gap-4">
                     {MINI_STATS.map((stat) => (
                       <div
                         key={stat.label}
-                        className="flex items-center gap-3"
+                        className="flex flex-col items-center gap-1.5 lg:flex-row lg:gap-3"
                       >
                         <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-forest-900/5">
                           <stat.icon className="h-4 w-4 text-forest-700" />
                         </div>
-                        <span className="text-sm font-medium text-forest-800">
+                        <span className="text-center text-xs font-medium text-forest-800 lg:text-left lg:text-sm">
                           {stat.label}
                         </span>
                       </div>
@@ -328,15 +341,15 @@ export function ContactContent() {
                 </div>
 
                 {/* Phone alternative */}
-                <div className="rounded-2xl border border-gold-500/20 bg-gold-500/5 p-5 sm:p-6">
+                <div className="rounded-2xl border border-gold-500/20 bg-gold-500/5 p-5">
                   <p className="text-sm font-medium text-forest-800">
                     Prefer to talk?
                   </p>
                   <a
                     href={PHONE_HREF}
-                    className="mt-2 flex items-center gap-2 text-lg font-bold text-forest-900 transition-colors hover:text-gold-600"
+                    className="mt-1.5 flex items-center gap-2 text-base font-bold text-forest-900 transition-colors hover:text-gold-600 lg:text-lg"
                   >
-                    <Phone className="h-5 w-5" />
+                    <Phone className="h-4 w-4 lg:h-5 lg:w-5" />
                     {PHONE_NUMBER}
                   </a>
                 </div>
