@@ -64,22 +64,30 @@ export function ContactContent() {
   };
 
   const inputClasses =
-    "w-full rounded-xl border border-cream-300/60 bg-white px-4 py-3.5 text-forest-900 text-sm transition-all placeholder:text-forest-700/30 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/20 focus:outline-none";
+    "block w-full rounded-xl border border-cream-300/60 bg-white px-4 py-3.5 text-forest-900 text-sm placeholder:text-forest-700/30 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/20 focus:outline-none";
   const labelClasses = "block text-sm font-medium text-forest-800 mb-1.5";
 
   return (
-    <>
+    <div style={{ overflowX: "hidden", width: "100%" }}>
       {/* Hero */}
-      <section className="bg-forest-950 px-4 pt-32 pb-16 sm:px-6 md:pt-40 md:pb-20">
-        <div className="mx-auto max-w-3xl text-center">
+      <section
+        style={{
+          backgroundColor: "var(--color-forest-950)",
+          padding: "8rem 1rem 4rem",
+          textAlign: "center",
+          width: "100%",
+          boxSizing: "border-box",
+        }}
+      >
+        <div style={{ maxWidth: "48rem", margin: "0 auto" }}>
           <Badge variant="gold" className="mb-6">
             <Shield className="h-3.5 w-3.5" />
             Free Consultation
           </Badge>
-          <h1 className="font-display text-4xl font-bold leading-tight text-cream-50 sm:text-5xl md:text-6xl">
+          <h1 className="font-display text-3xl font-bold leading-tight text-cream-50 sm:text-4xl md:text-5xl lg:text-6xl">
             Ready To Get What You&apos;re Actually Owed?
           </h1>
-          <p className="mt-6 text-lg text-cream-200/60">
+          <p className="mt-4 text-base text-cream-200/60 sm:mt-6 sm:text-lg">
             Fill out the form below to schedule your FREE claim review. No
             obligations, no pressure — just expert guidance.
           </p>
@@ -87,16 +95,24 @@ export function ContactContent() {
       </section>
 
       {/* Form Section */}
-      <section className="bg-cream-100 px-4 py-16 sm:px-6 md:py-24">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid gap-12 lg:grid-cols-3 lg:gap-16">
-            {/* Form */}
+      <section
+        style={{
+          backgroundColor: "var(--color-cream-100)",
+          padding: "3rem 1rem",
+          width: "100%",
+          boxSizing: "border-box",
+        }}
+        className="md:py-24"
+      >
+        <div style={{ maxWidth: "72rem", margin: "0 auto" }}>
+          <div className="grid gap-10 lg:grid-cols-3 lg:gap-16">
+            {/* Form Column */}
             <div className="lg:col-span-2">
               {submitted ? (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="rounded-2xl border border-cream-300/60 bg-white p-6 text-center shadow-xl shadow-black/5 sm:rounded-3xl sm:p-10"
+                  className="rounded-2xl border border-cream-300/60 bg-white p-6 text-center shadow-lg sm:p-10"
                 >
                   <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-forest-700/10">
                     <CheckCircle2 className="h-8 w-8 text-forest-700" />
@@ -113,17 +129,17 @@ export function ContactContent() {
               ) : (
                 <form
                   onSubmit={handleSubmit}
-                  className="rounded-2xl border border-cream-300/60 bg-white p-5 shadow-xl shadow-black/5 sm:rounded-3xl sm:p-8 md:p-10"
+                  className="rounded-2xl border border-cream-300/60 bg-white p-4 shadow-lg sm:p-8 md:p-10"
                 >
-                  <h2 className="font-display text-2xl font-bold text-forest-900">
+                  <h2 className="font-display text-xl font-bold text-forest-900 sm:text-2xl">
                     Schedule Your FREE Claim Review
                   </h2>
                   <p className="mt-1 text-sm text-forest-800/60">
                     Fields marked with * are required
                   </p>
 
-                  <div className="mt-8 grid gap-5 sm:grid-cols-2">
-                    {/* Full Name */}
+                  <div className="mt-6 space-y-4 sm:mt-8 sm:grid sm:grid-cols-2 sm:gap-5 sm:space-y-0">
+                    {/* Full Name - always full width */}
                     <div className="sm:col-span-2">
                       <label htmlFor="fullName" className={labelClasses}>
                         Full Name *
@@ -249,12 +265,11 @@ export function ContactContent() {
                         onChange={(e) =>
                           updateField("contactTime", e.target.value)
                         }
-                        placeholder="Select date"
                         className={inputClasses}
                       />
                     </div>
 
-                    {/* Description */}
+                    {/* Description - always full width */}
                     <div className="sm:col-span-2">
                       <label htmlFor="description" className={labelClasses}>
                         Brief Description of Damage
@@ -273,7 +288,7 @@ export function ContactContent() {
                   </div>
 
                   {/* Submit */}
-                  <div className="mt-8">
+                  <div className="mt-6 sm:mt-8">
                     <Button
                       type="submit"
                       size="lg"
@@ -284,7 +299,7 @@ export function ContactContent() {
                   </div>
 
                   {/* Privacy */}
-                  <p className="mt-4 text-xs text-forest-700/40">
+                  <p className="mt-3 text-xs text-forest-700/40">
                     By submitting this form, you agree to be contacted by S2S
                     Claims regarding your claim. We respect your privacy and
                     will never share your information.
@@ -295,9 +310,9 @@ export function ContactContent() {
 
             {/* Sidebar */}
             <div className="lg:col-span-1">
-              <div className="space-y-6 lg:sticky lg:top-28">
+              <div className="space-y-5 lg:sticky lg:top-28">
                 {/* Why Free */}
-                <div className="rounded-2xl border border-cream-300/60 bg-white p-6 shadow-lg shadow-black/5">
+                <div className="rounded-2xl border border-cream-300/60 bg-white p-5 shadow-md sm:p-6">
                   <h3 className="font-bold text-forest-900">
                     Why is this free?
                   </h3>
@@ -310,7 +325,7 @@ export function ContactContent() {
                 </div>
 
                 {/* Mini stats */}
-                <div className="rounded-2xl border border-cream-300/60 bg-white p-6 shadow-lg shadow-black/5">
+                <div className="rounded-2xl border border-cream-300/60 bg-white p-5 shadow-md sm:p-6">
                   <div className="space-y-4">
                     {MINI_STATS.map((stat) => (
                       <div
@@ -329,7 +344,7 @@ export function ContactContent() {
                 </div>
 
                 {/* Phone alternative */}
-                <div className="rounded-2xl border border-gold-500/20 bg-gold-500/5 p-6">
+                <div className="rounded-2xl border border-gold-500/20 bg-gold-500/5 p-5 sm:p-6">
                   <p className="text-sm font-medium text-forest-800">
                     Prefer to talk?
                   </p>
@@ -346,6 +361,6 @@ export function ContactContent() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

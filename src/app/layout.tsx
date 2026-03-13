@@ -69,10 +69,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${playfairDisplay.variable}`}>
-      <body className="font-body antialiased">
+    <html
+      lang="en"
+      className={`${dmSans.variable} ${playfairDisplay.variable}`}
+      style={{ overflowX: "hidden", maxWidth: "100vw" }}
+    >
+      <body
+        className="font-body antialiased"
+        style={{ overflowX: "hidden", maxWidth: "100vw" }}
+      >
         <Navbar />
-        <main>{children}</main>
+        <main style={{ overflowX: "hidden" }}>{children}</main>
         <Footer />
       </body>
     </html>
