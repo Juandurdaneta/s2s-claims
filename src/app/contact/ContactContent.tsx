@@ -67,7 +67,7 @@ export function ContactContent() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-forest-950 pt-32 pb-16 md:pt-40 md:pb-20">
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="absolute -top-32 right-0 h-80 w-80 rounded-full bg-gold-500/8 blur-3xl" />
+          <div className="absolute -top-32 -right-32 h-80 w-80 rounded-full bg-gold-500/8 blur-3xl" />
         </div>
 
         <Container className="relative z-10 px-5 sm:px-6 lg:px-8">
