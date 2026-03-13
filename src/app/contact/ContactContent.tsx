@@ -116,7 +116,7 @@ export function ContactContent() {
                   ) : (
                     <form
                       onSubmit={handleSubmit}
-                      className="rounded-3xl border border-cream-300/60 bg-white p-8 shadow-xl shadow-black/5 md:p-10"
+                      className="rounded-2xl border border-cream-300/60 bg-white p-5 shadow-xl shadow-black/5 sm:rounded-3xl sm:p-8 md:p-10"
                     >
                       <h2 className="font-display text-2xl font-bold text-forest-900">
                         Schedule Your FREE Claim Review
