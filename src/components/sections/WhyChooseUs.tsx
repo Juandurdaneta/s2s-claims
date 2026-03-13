@@ -33,7 +33,7 @@ const FEATURES: {
     title: "Former Insurance Insider",
     description:
       "Paden knows the playbook because he used to be part of the system — now he uses that knowledge for YOU.",
-    stat: "15+",
+    stat: "5+",
     statLabel: "Years Experience",
   },
   {
