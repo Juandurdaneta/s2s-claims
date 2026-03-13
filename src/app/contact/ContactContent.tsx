@@ -18,7 +18,6 @@ const CLAIM_STATUSES = [
   "Claim denied",
   "Other",
 ] as const;
-const CONTACT_TIMES = ["Morning", "Afternoon", "Evening"] as const;
 
 interface FormState {
   fullName: string;
@@ -154,7 +153,7 @@ export function ContactContent() {
                             id="phone"
                             type="tel"
                             required
-                            placeholder="(555) 123-4567"
+                            placeholder="(830) 214-2701"
                             value={form.phone}
                             onChange={(e) =>
                               updateField("phone", e.target.value)
@@ -247,29 +246,24 @@ export function ContactContent() {
                           </select>
                         </div>
 
-                        {/* Contact Time */}
+                        {/* Date of Loss */}
                         <div>
                           <label
                             htmlFor="contactTime"
                             className={labelClasses}
                           >
-                            Best Time to Contact
+                            Date of Loss
                           </label>
-                          <select
+                          <input
+                            type="date"
                             id="contactTime"
                             value={form.contactTime}
                             onChange={(e) =>
                               updateField("contactTime", e.target.value)
                             }
-                            className={cn(inputClasses, "appearance-none")}
-                          >
-                            <option value="">Select time</option>
-                            {CONTACT_TIMES.map((time) => (
-                              <option key={time} value={time}>
-                                {time}
-                              </option>
-                            ))}
-                          </select>
+                            placeholder="Select date"
+                            className={inputClasses}
+                          />
                         </div>
 
                         {/* Description */}
