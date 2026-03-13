@@ -1,6 +1,6 @@
 import { Container } from "@/components/ui/Container";
-import { MapPin, Phone, Mail } from "lucide-react";
-import { PHONE_NUMBER, PHONE_HREF, EMAIL } from "@/lib/utils";
+import { MapPin, Mail } from "lucide-react";
+import { EMAIL } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -47,13 +47,6 @@ export function Footer() {
 
             {/* Contact info */}
             <div className="mt-6 space-y-2">
-              <a
-                href={PHONE_HREF}
-                className="flex items-center gap-2 text-sm text-cream-200/50 hover:text-gold-400 transition-colors"
-              >
-                <Phone className="h-4 w-4" />
-                {PHONE_NUMBER}
-              </a>
               <a
                 href={`mailto:${EMAIL}`}
                 className="flex items-center gap-2 text-sm text-cream-200/50 hover:text-gold-400 transition-colors"
