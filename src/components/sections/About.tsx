@@ -46,12 +46,12 @@ export function About() {
                 </p>
 
                 <p className="text-lg leading-relaxed text-forest-800/80">
-                  That&apos;s why he became a public adjuster — to fight{" "}
+                  That&apos;s why he became a public adjuster, to fight{" "}
                   <span className="font-bold text-gold-600">FOR</span> homeowners
                   instead of against them.
                 </p>
 
-                <div className="mt-2 font-display text-xl italic leading-relaxed text-forest-900/80">
+                <div className="mt-2 text-lg leading-relaxed text-forest-800/80">
                   <p>
                     &ldquo;He knows exactly how the system works because he was
                     part of it.
